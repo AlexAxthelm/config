@@ -5,11 +5,11 @@
   # List available aliases
   aliases = !git config --get-regexp alias | sed -re 's/alias\\.(\\S*)\\s(.*)$/\\1 = \\2/g'
   # Command shortcuts
-  s = status -s
-  co = checkout
 	cob = checkout -b
 	pushall = !git remote | xargs -L1 git push --all
+  co = checkout
   lg = log --graph --decorate --oneline --all
+  s = status -s
 [color]
 	ui = auto
 [core]
@@ -22,5 +22,5 @@
 [pull]
 	rebase = true
 [push]
-	default = matching
 	autoSetupRemote = true
+	default = matching
