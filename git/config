@@ -1,0 +1,26 @@
+[user]
+	email = aaxthelm@RMI.org
+	name = Alex Axthelm
+[alias]
+  # List available aliases
+  aliases = !git config --get-regexp alias | sed -re 's/alias\\.(\\S*)\\s(.*)$/\\1 = \\2/g'
+  # Command shortcuts
+  s = status -s
+  co = checkout
+	cob = checkout -b
+	pushall = !git remote | xargs -L1 git push --all
+  lg = log --graph --decorate --oneline --all
+[color]
+	ui = auto
+[core]
+	autocrlf = input
+[log]
+  # Use abbrev SHAs whenever possible/relevant instead of full 40 chars
+  abbrevCommit = true
+  # Automatically --follow when given a single path
+  follow = true
+[pull]
+	rebase = true
+[push]
+	default = matching
+	autoSetupRemote = true
