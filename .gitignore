@@ -1,6 +1,7 @@
 tmux/plugins/
 
 nvim/plugged/
+karabiner/automatic_backups/
 
 # ignore github copilot entirely
 github-copilot/
