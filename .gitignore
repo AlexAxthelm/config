@@ -1,1 +1,4 @@
 tmux/plugins/
+
+# ignore github copilot entirely
+github-copilot/
