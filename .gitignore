@@ -1,4 +1,6 @@
 tmux/plugins/
 
+nvim/plugged/
+
 # ignore github copilot entirely
 github-copilot/
