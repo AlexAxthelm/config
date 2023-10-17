@@ -4,24 +4,59 @@ matches:
   # Print the current date
   - trigger: ":date:"
     label: ISO8601 date
-    replace: "{{isodate}}"
+    replace: "{{output}}"
     vars:
-      - name: isodate
-        type: date
+      - name: output
+        type: shell
         params:
-          format: "%Y-%m-%d"
+          cmd: "date -I"
 
   # Print the current datetime
-  - trigger: ":datetime:"
+  - triggers: [":dttm:", ":datetime:"]
     label: ISO8601 datetime
-    replace: "{{isodatetime}}T{{mytime}}"
+    replace: "{{output}}"
     vars:
-      - name: isodatetime
-        type: date
+      - name: output
+        type: shell
         params:
-          # format: "%Y-%m-%d"
-          format: "%Y-%m-%d"
-      - name: mytime
-        type: date
+          cmd: "date +'%Y-%m-%dT%H:%M:%S %Z'"
+
+  # Print the current datetime UTC
+  - trigger: ":zulu:"
+    label: ISO8601 datetime (UTC)
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: shell
         params:
-          format: "%_H:%M:%S %Z"
+          cmd: "date -u +'%Y-%m-%dT%H:%M:%S %Z'"
+
+  # Print date in "friendly" format
+  - triggers: [":fdate:", ":today:"]
+    label: "'friendly' date"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: "date +'%A, %b %d %Y'"
+
+  # Print tomorrow's date in "friendly" format
+  - trigger: ":tomorrow:"
+    label: "'friendly' date for tomorrow"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: "date -v+1d +'%A, %b %d %Y'"
+
+  # Print yesterday's date in "friendly" format
+  - trigger: ":yesterday:"
+    label: "'friendly' date for yesterday"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: "date -v-1d +'%A, %b %d %Y'"
