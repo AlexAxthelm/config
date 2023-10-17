@@ -3,8 +3,22 @@
 # Aliases for the shell
 # Set IGNORE_UNINSTALLED_ALIAS to any value to suppress info messages.
 
+# navigation
+alias ..='cd ..'
+alias ...='cd ../../../'
+alias ....='cd ../../../../'
+alias .....='cd ../../../../'
+alias .4='cd ../../../../'
+alias .5='cd ../../../../..'
+
+# History
+alias h='history'
+alias gh='history|grep'
+
+# ls
 alias la="ls -la"
 
+# Applications
 if [ -x "$(command -v lsd)" ]; then
   alias ls="lsd"
 else
@@ -12,15 +26,6 @@ else
     echo "INFO: lsd not installed"
   fi
 fi
-
-if [ -x "$(command -v lsd)" ]; then
-  alias ls="lsd"
-else
-  if [ -z "$IGNORE_UNINSTALLED_ALIAS" ]; then
-    echo "INFO: lsd not installed"
-  fi
-fi
-
 
 if [ -x "$(command -v nvim)" ]; then
   alias vim="nvim"
