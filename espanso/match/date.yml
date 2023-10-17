@@ -1,0 +1,27 @@
+---
+matches:
+
+  # Print the current date
+  - trigger: ":date:"
+    label: ISO8601 date
+    replace: "{{isodate}}"
+    vars:
+      - name: isodate
+        type: date
+        params:
+          format: "%Y-%m-%d"
+
+  # Print the current datetime
+  - trigger: ":datetime:"
+    label: ISO8601 datetime
+    replace: "{{isodatetime}}T{{mytime}}"
+    vars:
+      - name: isodatetime
+        type: date
+        params:
+          # format: "%Y-%m-%d"
+          format: "%Y-%m-%d"
+      - name: mytime
+        type: date
+        params:
+          format: "%_H:%M:%S %Z"

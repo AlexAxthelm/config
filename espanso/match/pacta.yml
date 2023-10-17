@@ -1,0 +1,5 @@
+---
+matches:
+
+  - trigger: ":p"
+    replace: "PACTA"

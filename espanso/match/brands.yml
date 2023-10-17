@@ -1,0 +1,58 @@
+---
+# inspired by https://hub.espanso.org/brand-names
+matches:
+
+  - trigger: "1password"
+    replace: "1Password"
+    propagate_case: true
+    word: true
+
+  - trigger: "dropbox"
+    replace: "Dropbox"
+    propagate_case: true
+    word: true
+
+  - trigger: "facebook"
+    replace: "Facebook"
+    propagate_case: true
+    word: true
+
+  - trigger: "github"
+    replace: "GitHub"
+    propagate_case: true
+    word: true
+
+  - trigger: "linkedin"
+    replace: "LinkedIn"
+    propagate_case: true
+    word: true
+
+  - trigger: "macphun"
+    replace: "Macphun"
+    propagate_case: true
+    word: true
+
+  - trigger: "microsoft"
+    replace: "Microsoft"
+    propagate_case: true
+    word: true
+
+  - trigger: "salesforce"
+    replace: "Salesforce"
+    propagate_case: true
+    word: true
+
+  - trigger: "wikipedia"
+    replace: "Wikipedia"
+    propagate_case: true
+    word: true
+
+  - trigger: "touchbar"
+    replace: "Touch Bar"
+    propagate_case: true
+    word: true
+
+  - trigger: "youtube"
+    replace: "YouTube"
+    propagate_case: true
+    word: true
