@@ -6,6 +6,7 @@
   aliases = !git config --get-regexp alias | sed -re 's/alias\\.(\\S*)\\s(.*)$/\\1 = \\2/g'
   # Command shortcuts
 	cob = checkout -b
+	com = checkout main
 	pushall = !git remote | xargs -L1 git push --all
   co = checkout
   lg = log --graph --decorate --oneline --all

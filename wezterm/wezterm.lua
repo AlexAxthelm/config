@@ -7,7 +7,7 @@ return {
     'SFMono Nerd Font',
     'SFMono',
   },
-  default_prog = { '/opt/homebrew/bin/tmux', 'attach'},
+  -- default_prog = { '/opt/homebrew/bin/tmux', 'new', '-As0'},
   check_for_updates = true,
   check_for_updates_interval_seconds = 86400,
   show_update_window = true,
