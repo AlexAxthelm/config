@@ -1,0 +1,42 @@
+# Set CRAN Repo
+local({
+  r <- getOption("repos")
+  r["CRAN"] <- "https://cran.rstudio.org"
+  options(repos = r)
+})
+
+if (interactive()) {
+
+  .First <- function(){
+    .set_width()
+    print("Good Morning! I hope you write good code today.")
+  }
+
+  .Last <- function() {
+    print("Bye bye. Hope you come back soon")
+  }
+
+  .set_width <- function(
+    width = as.integer(Sys.getenv("COLUMNS", system('tput cols',intern=TRUE))),
+    show_width = FALSE
+  ){
+    if (is.na(width) || width > 10000 || width < 10) {
+      width <- 80
+    }
+    options(width = width)
+    if (show_width) {
+      message(paste("Width set to:", width, "columns"))
+    }
+  }
+
+  q <- function(save = "no", status = 0, runLast = TRUE){
+    .Internal(quit(save, status, runLast))
+    #<environment: namespace:base>
+  }
+
+  options(
+    "prompt" = paste0("R", R.version[["major"]], ".", R.version[["minor"]], "> "),
+    "continue" = " + "
+  )
+
+}
