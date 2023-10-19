@@ -10,6 +10,7 @@
 	pushall = !git remote | xargs -L1 git push --all
   co = checkout
   lg = log --graph --decorate --oneline --all
+  pr = push -u origin HEAD
   s = status -s
 [color]
 	ui = auto
