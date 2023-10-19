@@ -5,3 +5,6 @@ karabiner/automatic_backups/
 
 # ignore github copilot entirely
 github-copilot/
+
+# ignore Renviron, since that probably has a GitHub PAT
+Renviron

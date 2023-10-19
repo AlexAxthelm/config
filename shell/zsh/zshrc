@@ -1,4 +1,3 @@
-# https://github.com/Homebrew/discussions/discussions/446#discussioncomment-263078
 export XDG_CONFIG_HOME="$HOME/.config"
 
 source $XDG_CONFIG_HOME/shell/exports.sh

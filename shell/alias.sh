@@ -50,3 +50,12 @@ else
     echo "INFO: bat not installed"
   fi
 fi
+
+if [ -x "$(command -v R)" ]; then
+  alias R="R --quiet"
+else
+  if [ -z "$IGNORE_UNINSTALLED_ALIAS" ]; then
+    echo "INFO: R not installed"
+  fi
+fi
+
