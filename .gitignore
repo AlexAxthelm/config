@@ -9,6 +9,7 @@ github-copilot/
 # ignore Renviron, since that probably has a GitHub PAT
 Renviron
 
-# ignore antidote directory and plugins executable
+# ignore antidote directory and plugins
 shell/zsh/antidote/
+shell/zsh/plugins/
 shell/zsh/zsh_plugins.zsh

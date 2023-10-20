@@ -1,6 +1,7 @@
 export XDG_CONFIG_HOME="$HOME/.config"
 
-source $XDG_CONFIG_HOME/shell/zsh/antidote.zsh
-
 source $XDG_CONFIG_HOME/shell/exports.sh
 source $XDG_CONFIG_HOME/shell/alias.sh
+
+source $XDG_CONFIG_HOME/shell/zsh/antidote.zsh
+
