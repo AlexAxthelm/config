@@ -13,4 +13,4 @@ source $XDG_CONFIG_HOME/shell/alias.sh
 source $XDG_CONFIG_HOME/shell/zsh/antidote.zsh
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+[[ ! -f "$XDG_CONFIG_HOME/shell/zsh/p10k.zsh" ]] || source "$XDG_CONFIG_HOME/shell/zsh/p10k.zsh" 
