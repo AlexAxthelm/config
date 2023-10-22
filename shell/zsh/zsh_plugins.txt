@@ -20,6 +20,10 @@
 
 romkatv/powerlevel10k
 
+# OMZ plugins
+ohmyzsh/ohmyzsh path:plugins/colored-man-pages
+ohmyzsh/ohmyzsh path:plugins/command-not-found
+
 # ### Completions
 # #
 # # You may want to add some additional completions to Zsh. Completions look in your fpath
@@ -32,11 +36,15 @@ romkatv/powerlevel10k
 # #   autoload -Uz compinit && compinit
 # #
 # ###
-# 
-# # zsh-users/zsh-completions is a popular plugin for adding supplemental completions.
-# # We combine the `path:` and `kind:fpath` annotations here:
-# zsh-users/zsh-completions path:src kind:fpath
-# 
+
+# completions
+ohmyzsh/ohmyzsh path:plugins/docker/completions kind:fpath
+ohmyzsh/ohmyzsh path:plugins/docker-compose kind:fpath
+ohmyzsh/ohmyzsh path:plugins/ag kind:fpath
+
+# TODO: make this portable
+/opt/homebrew/share/zsh/site-functions kind:fpath
+
 # # Compinit plugins should be near the end of .zsh_plugins.txt so that $fpath has been
 # # fully populated. Use zsh-utils for its completion plugin.
 # belak/zsh-utils path:completion
