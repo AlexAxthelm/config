@@ -45,7 +45,6 @@ Plug 'reedes/vim-pencil'
 
 " plugin.colorscheme 
 Plug 'chriskempson/base16-vim'
-Plug 'altercation/vim-colors-solarized'
 
 " plugin.tk-unclassified 
 " Plug 'junegunn/fzf.vim'
@@ -223,6 +222,17 @@ set number relativenumber
 
 "" Set column 80 to be a different color
 set colorcolumn=80
+
+set termguicolors
+
+" "" Set colorscheme
+" if exists('$BASE16_THEME')
+"       \ && (!exists('g:colors_name') || g:colors_name != 'base16-$BASE16_THEME')
+"   set background=dark
+"   let base16colorspace=256
+"   colorscheme base16-$BASE16_THEME
+" endif
+colorscheme base16-solarized-light
 
 "" Set default register to the clipboard
 set clipboard^=unnamed

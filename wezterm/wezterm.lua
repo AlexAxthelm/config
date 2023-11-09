@@ -11,7 +11,7 @@ return {
   check_for_updates = true,
   check_for_updates_interval_seconds = 86400,
   show_update_window = true,
-  color_scheme = 'Solarized (dark) (terminal.sexy)',
+  -- color_scheme = 'Solarized (dark) (terminal.sexy)',
   font_size = 11.0,
   window_background_opacity = 1.0,
   enable_tab_bar = true,
