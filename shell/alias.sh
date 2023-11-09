@@ -25,6 +25,9 @@ alias isodate_basic="date -u +%Y%m%dT%H%M%SZ"
 alias unixstamp="date +%s"
 alias date_locale="date +'%c'"
 
+# tar
+alias untar="tar -xzvm --no-same-permissions --no-same-owner -f"
+
 # Applications
 if [ -x "$(command -v lsd)" ]; then
   alias ls="lsd"

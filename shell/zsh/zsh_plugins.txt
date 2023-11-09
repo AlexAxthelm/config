@@ -41,6 +41,7 @@ ohmyzsh/ohmyzsh path:plugins/command-not-found
 ohmyzsh/ohmyzsh path:plugins/docker/completions kind:fpath
 ohmyzsh/ohmyzsh path:plugins/docker-compose kind:fpath
 ohmyzsh/ohmyzsh path:plugins/ag kind:fpath
+git/git path:blob/master/contrib/completion kind:fpath
 
 # TODO: make this portable
 /opt/homebrew/share/zsh/site-functions kind:fpath
