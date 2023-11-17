@@ -54,7 +54,7 @@ Plug 'godlygeek/tabular'
 " Plug 'editorconfig/editorconfig-vim'
 "
 " plugin.completion 
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 " Plug 'Shougo/neco-syntax'
 " Plug 'fszymanski/deoplete-emoji'
 " Plug 'tbodt/deoplete-tabnine', { 'do': './install.sh' }
@@ -62,21 +62,17 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 " Plug 'zchee/deoplete-jedi'
 " Plug 'SevereOverfl0w/deoplete-github'
 " Plug 'zchee/deoplete-docker'
-Plug 'deathlyfrantic/deoplete-spell'
+" Plug 'deathlyfrantic/deoplete-spell'
 Plug 'wellle/tmux-complete.vim'
-" if g:os ==? 'Darwin'
-				Plug 'thalesmello/webcomplete.vim'
+" " if g:os ==? 'Darwin'
+" 				Plug 'thalesmello/webcomplete.vim'
 " endif
 
 " " plugin.language 
 " 
 " " plugin.language.tools 
- Plug 'jpalardy/vim-slime'
- " Plug 'autozimu/LanguageClient-neovim', {
- "											\ 'branch': 'next',
- "											\ 'do': 'bash install.sh',
- "											\ }
-"  " Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+Plug 'jpalardy/vim-slime'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " 
  " plugin.language.json 
  Plug 'elzr/vim-json'
@@ -131,6 +127,7 @@ Plug 'haya14busa/vim-operator-flashy'
 " Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 " Plug 'severin-lemaignan/vim-minimap'
 " Plug 'AndrewRadev/linediff.vim'
+
 Plug 'stephpy/vim-yaml'
 
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
@@ -140,6 +137,8 @@ Plug 'wellle/context.vim'
 Plug 'github/copilot.vim'
 
 call plug#end()
+
+let mapleader = "\<Space>"
 
 let g:ale_virtualtext_cursor = 'disabled'
 let g:ale_set_loclist = 1
@@ -171,24 +170,24 @@ set expandtab
 "" prevent window repositioning on open new tab by always having tabline
 set showtabline=2
 
-" Use deoplete.
-let g:deoplete#enable_at_startup = 1
-let g:tmuxcomplete#trigger = ''
-call deoplete#custom#option({
-      \ 'auto_complete_delay': 50,
-      \ 'smart_case': v:true,
-      \ })
+" " Use deoplete.
+" let g:deoplete#enable_at_startup = 1
+" let g:tmuxcomplete#trigger = ''
+" call deoplete#custom#option({
+"       \ 'auto_complete_delay': 50,
+"       \ 'smart_case': v:true,
+"       \ })
 
 autocmd FileType gitcommit setlocal spell
 
-" Use <tab> for deoplete completion: https://github.com/Shougo/deoplete.nvim/issues/432
-inoremap <expr> <tab> pumvisible() ? "\<C-n>" : "\<tab>"
-inoremap <expr> <S-tab> pumvisible() ? "\<C-p>" : "\<S-tab>"
-" Use Enter to choose a completion
-inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-" Keep a option selected at all times.
-inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
-  \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+" " Use <tab> for deoplete completion: https://github.com/Shougo/deoplete.nvim/issues/432
+" inoremap <expr> <tab> pumvisible() ? "\<C-n>" : "\<tab>"
+" inoremap <expr> <S-tab> pumvisible() ? "\<C-p>" : "\<S-tab>"
+" " Use Enter to choose a completion
+" inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" " Keep a option selected at all times.
+" inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
+"   \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
@@ -395,3 +394,66 @@ let g:asterisk#keeppos = 1
 au! BufNewFile,BufReadPost *.{yaml,yml} set filetype=yaml foldmethod=indent
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 
+" coc.nvim settings
+" see: https://blog.ffff.lt/posts/ale-deoplete-languageclient-vs-coc/
+let g:coc_global_extensions = [
+\ '@yaegassy/coc-marksman',
+\ 'coc-browser',
+\ 'coc-conventional',
+\ 'coc-dash-complete',
+\ 'coc-diagnostic',
+\ 'coc-dictionary',
+\ 'coc-docker',
+\ 'coc-dot-complete',
+\ 'coc-emoji',
+\ 'coc-git',
+\ 'coc-gitignore',
+\ 'coc-highlight',
+\ 'coc-html',
+\ 'coc-json',
+\ 'coc-just-complete',
+\ 'coc-markdown-preview-enhanced',
+\ 'coc-markdownlint',
+\ 'coc-nav',
+\ 'coc-pairs',
+\ 'coc-prettier',
+\ 'coc-python',
+\ 'coc-r-lsp',
+\ 'coc-sh',
+\ 'coc-snippets',
+\ 'coc-sql',
+\ 'coc-sqlfluff',
+\ 'coc-stylelint',
+\ 'coc-symbol-line',
+\ 'coc-tabnine',
+\ 'coc-texlab', 
+\ 'coc-toml',
+\ 'coc-vimlsp',
+\ 'coc-webview', 
+\ 'coc-yaml',
+\ 'coc-yank'
+\ ]
+
+" Disable ALE LSP in favor of coc.nvim
+let g:ale_disable_lsp = 1
+
+" use <Leader>j.k to move between diagnostics
+nmap <silent> <Leader>j <Plug>(coc-diagnostic-next)
+nmap <silent> <Leader>k <Plug>(coc-diagnostic-prev)
+
+" use <tab> to trigger completion and navigate to the next complete item
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+inoremap <silent><expr> <Tab>
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ CheckBackspace() ? "\<Tab>" :
+      \ coc#refresh()
+
+inoremap <expr> <Tab> coc#pum#visible() ? coc#pum#next(1) : "\<Tab>"
+inoremap <expr> <S-Tab> coc#pum#visible() ? coc#pum#prev(1) : "\<S-Tab>"
+
+" TODO: coc-symbol-line add to statusline/tabline
+" TODO: explore lualine

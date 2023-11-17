@@ -1,6 +1,12 @@
+# ignore tmux plugins
 tmux/plugins/
 
+# ignore nvim plugins
 nvim/plugged/
+coc/
+mume/
+
+# ignore karabiner automatic backups
 karabiner/automatic_backups/
 
 # ignore github copilot entirely
