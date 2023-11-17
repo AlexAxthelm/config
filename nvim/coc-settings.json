@@ -1,4 +1,13 @@
 {
+  "diagnostic-languageserver.filetypes": {
+    "dockerfile": [ "hadolint" ],
+    "Dockerfile": [ "hadolint" ],
+    "email": [ "languagetool" ],
+    "markdown": [ "write-good", "markdownlint" ],
+    "sh": [ "shellcheck" ],
+    "yaml": [ "yamllint" ]
+  },
+  "Xdiagnostic.displayByAle": true,
   "cSpell.dictionaryDefinitions": [
     {
       "name": "aaxthelm",

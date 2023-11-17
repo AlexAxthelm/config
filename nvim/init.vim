@@ -35,7 +35,7 @@ Plug 'tpope/vim-repeat'
 " Plug 'junegunn/vim-peekaboo'
 
 " plugin.linter 
-" Plug 'w0rp/ale'
+Plug 'w0rp/ale'
 
 " plugin.prose 
 Plug 'junegunn/goyo.vim'
@@ -137,6 +137,8 @@ Plug 'wellle/context.vim'
 Plug 'github/copilot.vim'
 
 call plug#end()
+
+let mapleader = "\<Space>"
 
 let g:ale_virtualtext_cursor = 'disabled'
 let g:ale_set_loclist = 1
@@ -273,7 +275,7 @@ function! s:goyo_enter()
 	setlocal nospell
   Limelight
 	PencilSoft
-	" ALEDisable
+	ALEDisable
   " ...
 endfunction
 
@@ -299,7 +301,7 @@ function! s:goyo_leave()
 	setlocal spell
   Limelight!
 	PencilOff
-	" ALEEnable
+	ALEEnable
   " ...
 endfunction
 
@@ -410,7 +412,6 @@ let g:coc_global_extensions = [
 \ 'coc-html',
 \ 'coc-json',
 \ 'coc-just-complete',
-\ 'coc-ltex',
 \ 'coc-markdown-preview-enhanced',
 \ 'coc-markdownlint',
 \ 'coc-nav',
@@ -420,7 +421,6 @@ let g:coc_global_extensions = [
 \ 'coc-r-lsp',
 \ 'coc-sh',
 \ 'coc-snippets',
-\ 'coc-spell-checker',
 \ 'coc-sql',
 \ 'coc-sqlfluff',
 \ 'coc-stylelint',
@@ -430,10 +430,16 @@ let g:coc_global_extensions = [
 \ 'coc-toml',
 \ 'coc-vimlsp',
 \ 'coc-webview', 
-\ 'coc-word',
 \ 'coc-yaml',
 \ 'coc-yank'
 \ ]
+
+" Disable ALE LSP in favor of coc.nvim
+let g:ale_disable_lsp = 1
+
+" use <Leader>j.k to move between diagnostics
+nmap <silent> <Leader>j <Plug>(coc-diagnostic-next)
+nmap <silent> <Leader>k <Plug>(coc-diagnostic-prev)
 
 " use <tab> to trigger completion and navigate to the next complete item
 function! CheckBackspace() abort

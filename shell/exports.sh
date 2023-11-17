@@ -17,6 +17,10 @@ else
   echo "WARN: brew not found ($brew_cmd)"
 fi
 
+if [ -x "$(command -v nvim)" ]; then
+  export EDITOR="nvim"
+fi
+
 if [ -x "$(command -v R)" ]; then
   export R_PROFILE_USER="$XDG_CONFIG_HOME/R/Rprofile"
   export R_ENVIRON_USER="$XDG_CONFIG_HOME/R/Renviron"
