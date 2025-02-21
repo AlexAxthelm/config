@@ -21,3 +21,6 @@ shell/zsh/plugins/
 shell/zsh/zsh_plugins.zsh
 
 configstore/
+
+# ignore radian history
+radian/history

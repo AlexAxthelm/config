@@ -1,13 +1,49 @@
 # Set CRAN Repo
 local({
   r <- getOption("repos")
-  r["CRAN"] <- "https://cran.rstudio.org"
-  options(repos = r)
+  r[["CRAN"]] <- "https://cran.rstudio.org"
+  options(repos = r) # nolint: undesirable_function_linter asdfasdfasdfasdfasdfasdfasdfasdf
 })
+
+package_check <- function(pkgs) {
+  # Check that packages are installed, and warn if not
+  if (requireNamespace("logger", quietly = TRUE)) {
+    log_func <- logger::log_warn
+  } else {
+    log_func <- message
+  }
+  missing_pkgs <- NULL
+  for (pkg in pkgs) {
+    if (!requireNamespace(pkg, quietly = TRUE)) {
+      missing_pkgs <- c(missing_pkgs, pkg)
+      log_func(paste0("Package '", pkg, "' not found."))
+    }
+  }
+  if (length(missing_pkgs) > 0 && interactive()) {
+    install <- utils::menu(
+      title = "Install missing packages?",
+      choices = c("Yes", "No")
+    )
+    if (install == 1L) {
+      utils::install.packages(missing_pkgs)
+    }
+  }
+}
+
+preferred_packages <- c(
+  "devtools",
+  "languageserver",
+  "logger",
+  "pak",
+  "reprex",
+  "tidyverse",
+  "usethis"
+)
+package_check(preferred_packages)
 
 if (interactive()) {
 
-  .First <- function(){
+  .First <- function() {
     .set_width()
     print("Good Morning! I hope you write good code today.")
   }
@@ -17,26 +53,38 @@ if (interactive()) {
   }
 
   .set_width <- function(
-    width = as.integer(Sys.getenv("COLUMNS", system('tput cols',intern=TRUE))),
+    width = as.integer(
+      Sys.getenv("COLUMNS", system("tput cols", intern = TRUE))
+    ),
     show_width = FALSE
-  ){
-    if (is.na(width) || width > 10000 || width < 10) {
-      width <- 80
+  ) {
+    if (is.na(width) || width > 10000L || width < 10L) {
+      width <- 80L
     }
-    options(width = width)
+    options(width = width) #nolint: undesirable_function_linter
     if (show_width) {
-      message(paste("Width set to:", width, "columns"))
+      message("Width set to: ", width, " columns")
     }
   }
 
-  q <- function(save = "no", status = 0, runLast = TRUE){
+  q <- function(
+    save = "no",
+    status = 0L,
+    runLast = TRUE # nolint: object_name_linter
+  ) {
     .Internal(quit(save, status, runLast))
     #<environment: namespace:base>
   }
 
-  options(
-    "prompt" = paste0("R", R.version[["major"]], ".", R.version[["minor"]], "> "),
-    "continue" = " + "
+  options( #nolint: undesirable_function_linter
+    prompt = paste0(
+      "R", R.version[["major"]], ".", R.version[["minor"]], "> "
+    ),
+    continue = " + ",
+    reprex.session_info = TRUE,
+    reprex.venue = "gh",
+    reprex.advertise = TRUE,
+    reprex.style = TRUE
   )
 
 }
