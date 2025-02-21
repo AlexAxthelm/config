@@ -11,10 +11,6 @@ alias .....='cd ../../../../'
 alias .4='cd ../../../../'
 alias .5='cd ../../../../..'
 
-# History
-alias h='history'
-alias gh='history|grep'
-
 # ls
 alias la="ls -la"
 
@@ -66,6 +62,14 @@ if [ -x "$(command -v R)" ]; then
 else
   if [ -z "$IGNORE_UNINSTALLED_ALIAS" ]; then
     echo "INFO: R not installed"
+  fi
+fi
+
+if [ -x "$(command -v radian)" ]; then
+  alias R="radian"
+else
+  if [ -z "$IGNORE_UNINSTALLED_ALIAS" ]; then
+    echo "INFO: radian not installed"
   fi
 fi
 

@@ -3,6 +3,7 @@
 
 # Don't use images for M1 Mac, since I'm mosly targeting Linux servers
 export DOCKER_DEFAULT_PLATFORM="linux/amd64"
+export BUILDKIT_PROGRESS="plain"
 
 # Powerline Settings
 export POWERLINE_REPOSITORY_ROOT="/opt/homebrew/lib/python3.11/site-packages"

@@ -20,3 +20,6 @@ source $XDG_CONFIG_HOME/shell/zsh/antidote.zsh
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f "$XDG_CONFIG_HOME/shell/zsh/p10k.zsh" ]] || source "$XDG_CONFIG_HOME/shell/zsh/p10k.zsh" 
+
+# Created by `pipx` on 2024-06-13 11:44:48
+export PATH="$PATH:/Users/aaxthelm/.local/bin"
