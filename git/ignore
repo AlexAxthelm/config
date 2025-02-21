@@ -45,3 +45,6 @@ secring.*
 .dropbox
 dropbox.attr
 .dropbox.cache
+
+# ----Asciinema----
+*.cast
