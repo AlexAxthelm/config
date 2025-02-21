@@ -20,6 +20,11 @@ module.exports = {
   },
   handlers: [
     {
+      match: ({opener}) =>
+      ["us.zoom.xos"].includes(opener.bundleId),
+      browser: work
+    },
+    {
       match: [
         "zoom.us/*",
         finicky.matchDomains(/.*\zoom.us/),
@@ -67,6 +72,10 @@ module.exports = {
     },
     {
       match: "rockmtnins-my.sharepoint.com/*",
+      browser: work     
+    },
+    {
+      match: "*.myworkday.com/rockymountain/*",
       browser: work     
     },
   ]
