@@ -1,7 +1,9 @@
 local wezterm = require 'wezterm'
 return {
   font = wezterm.font_with_fallback {
+    'Atkinson Hyperlegible Mono',
     'FiraCode Nerd Font',
+    'Departure Mono',
     'CaskaydiaCove Nerd Font',
     'Hack Nerd Font',
     'SFMono Nerd Font',
