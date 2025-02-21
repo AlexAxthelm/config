@@ -5,6 +5,7 @@ call plug#begin('~/.config/nvim/plugged')
 
 " plugin.filesystem 
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb'
 Plug 'airblade/vim-gitgutter'
 
 " plugin.ui 
@@ -35,7 +36,7 @@ Plug 'tpope/vim-repeat'
 " Plug 'junegunn/vim-peekaboo'
 
 " plugin.linter 
-Plug 'w0rp/ale'
+" Plug 'w0rp/ale'
 
 " plugin.prose 
 Plug 'junegunn/goyo.vim'
@@ -54,22 +55,8 @@ Plug 'godlygeek/tabular'
 " Plug 'editorconfig/editorconfig-vim'
 "
 " plugin.completion 
-" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-" Plug 'Shougo/neco-syntax'
-" Plug 'fszymanski/deoplete-emoji'
-" Plug 'tbodt/deoplete-tabnine', { 'do': './install.sh' }
-" endif
-" Plug 'zchee/deoplete-jedi'
-" Plug 'SevereOverfl0w/deoplete-github'
-" Plug 'zchee/deoplete-docker'
-" Plug 'deathlyfrantic/deoplete-spell'
 Plug 'wellle/tmux-complete.vim'
-" " if g:os ==? 'Darwin'
-" 				Plug 'thalesmello/webcomplete.vim'
-" endif
 
-" " plugin.language 
-" 
 " " plugin.language.tools 
 Plug 'jpalardy/vim-slime'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -98,19 +85,10 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Plug 'gabrielelana/vim-markdown'
 " Plug 'kblin/vim-fountain'
 
-" plugin.language.python 
-" Plug 'vim-python/python-syntax'
-" Plug 'tmhedberg/SimpylFold'
-" Plug 'Vimjas/vim-python-pep8-indent'
-
-" plugin.snippets 
-" Plug 'SirVer/ultisnips'
-" Plug 'honza/vim-snippets'
-
 " " plugin.general.in-testing 
 " Plug 'terryma/vim-smooth-scroll'
 " Plug 'itchyny/vim-cursorword'
-" Plug 'rhysd/committia.vim'
+Plug 'rhysd/committia.vim'
 " Plug 'roxma/vim-tmux-clipboard'
 " Plug 'tmux-plugins/vim-tmux-focus-events'
 " Plug 'jiangmiao/auto-pairs'
@@ -136,17 +114,19 @@ Plug 'wellle/context.vim'
 
 Plug 'github/copilot.vim'
 
+Plug 'sindrets/diffview.nvim'
+
 call plug#end()
 
 let mapleader = "\<Space>"
 
-let g:ale_virtualtext_cursor = 'disabled'
-let g:ale_set_loclist = 1
-let g:ale_open_list = 1
-let g:ale_echo_msg_info_str = 'I'
-let g:ale_echo_msg_error_str = 'E'
-let g:ale_echo_msg_warning_str = 'W'
-let g:ale_echo_msg_format = '[%severity%] [%linter%] %code: %%s'
+" let g:ale_virtualtext_cursor = 'disabled'
+" let g:ale_set_loclist = 1
+" let g:ale_open_list = 1
+" let g:ale_echo_msg_info_str = 'I'
+" let g:ale_echo_msg_error_str = 'E'
+" let g:ale_echo_msg_warning_str = 'W'
+" let g:ale_echo_msg_format = '[%severity%] [%linter%] %code: %%s'
 
 " let g:ale_r_lintr_lint_package = 1
 
@@ -224,6 +204,9 @@ set colorcolumn=80
 
 set termguicolors
 
+" leave some space at the bottom of the screen
+set scrolloff=10
+
 " "" Set colorscheme
 " if exists('$BASE16_THEME')
 "       \ && (!exists('g:colors_name') || g:colors_name != 'base16-$BASE16_THEME')
@@ -275,7 +258,7 @@ function! s:goyo_enter()
 	setlocal nospell
   Limelight
 	PencilSoft
-	ALEDisable
+	" ALEDisable
   " ...
 endfunction
 
@@ -301,7 +284,7 @@ function! s:goyo_leave()
 	setlocal spell
   Limelight!
 	PencilOff
-	ALEEnable
+	" ALEEnable
   " ...
 endfunction
 
@@ -394,30 +377,29 @@ let g:asterisk#keeppos = 1
 au! BufNewFile,BufReadPost *.{yaml,yml} set filetype=yaml foldmethod=indent
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 
+autocmd FileType r setlocal sw=2
+let r_indent_align_args = 0
+
 " coc.nvim settings
 " see: https://blog.ffff.lt/posts/ale-deoplete-languageclient-vs-coc/
 let g:coc_global_extensions = [
 \ '@yaegassy/coc-marksman',
 \ 'coc-browser',
-\ 'coc-conventional',
 \ 'coc-dash-complete',
 \ 'coc-diagnostic',
 \ 'coc-dictionary',
 \ 'coc-docker',
 \ 'coc-dot-complete',
 \ 'coc-emoji',
-\ 'coc-git',
-\ 'coc-gitignore',
 \ 'coc-highlight',
 \ 'coc-html',
 \ 'coc-json',
 \ 'coc-just-complete',
 \ 'coc-markdown-preview-enhanced',
 \ 'coc-markdownlint',
-\ 'coc-nav',
 \ 'coc-pairs',
 \ 'coc-prettier',
-\ 'coc-python',
+\ 'coc-pyright',
 \ 'coc-r-lsp',
 \ 'coc-sh',
 \ 'coc-snippets',
@@ -429,15 +411,20 @@ let g:coc_global_extensions = [
 \ 'coc-texlab', 
 \ 'coc-toml',
 \ 'coc-vimlsp',
-\ 'coc-webview', 
 \ 'coc-yaml',
 \ 'coc-yank'
 \ ]
 
+" :autocmd User CocNvimInit CocDiagnostics
+" :autocmd BufEnter * CocDiagnostics
 " Disable ALE LSP in favor of coc.nvim
 let g:ale_disable_lsp = 1
 
+" close loclist when jumping to a location
+autocmd FileType qf nmap <buffer> <cr> <cr>:lcl<cr>
+
 " use <Leader>j.k to move between diagnostics
+nmap <silent> <Leader>h :CocDiagnostics<cr>
 nmap <silent> <Leader>j <Plug>(coc-diagnostic-next)
 nmap <silent> <Leader>k <Plug>(coc-diagnostic-prev)
 
@@ -455,5 +442,119 @@ inoremap <silent><expr> <Tab>
 inoremap <expr> <Tab> coc#pum#visible() ? coc#pum#next(1) : "\<Tab>"
 inoremap <expr> <S-Tab> coc#pum#visible() ? coc#pum#prev(1) : "\<S-Tab>"
 
-" TODO: coc-symbol-line add to statusline/tabline
-" TODO: explore lualine
+" CSV in column name
+function CSVStatuslineComponent()
+  if has("statusline")
+    if exists("*CSV_WCol")
+      if &ft =~ "csv"
+        let csv = CSV_WCol("Name")
+        let csv .= " "
+        let csv .= CSV_WCol()
+        " let csv = '%1*%{&ft=~"csv" ? CSV_WCol("Name") . " " . CSV_WCol() : ""}%*'
+      else
+        let csv = ''
+      endif
+    else
+      let csv = ''
+    endif
+    return csv
+  endif
+endfunc
+
+function MyStatusline()
+  let statuslineText = ""
+  let statuslineText .= "%<%f\ %h%m%r"
+  let statuslineText .= "\ %{FugitiveStatusline()}"
+  " let statuslineText .= "%="
+  " let statuslineText .= "\ %y"
+  " let statuslineText .= "\ %{CSVStatuslineComponent()}"
+  " let statuslineText .= "%(\ L%l,C%c%V%)\ %P"
+  return statuslineText
+endfunc
+
+set statusline=%!MyStatusline()
+
+" set statusline=
+" set statusline+=%<%f\ %h%m%r
+" set statusline+=%!CSVStatuslineComponent()
+" set statusline+=\ %{coc#status()}
+" set statusline+=%=
+" set statusline+=\ %y
+" set statusline+=%(\ L%l,C%c%V%)\ %P
+
+" " for using vim-slime with radian (alternate R ui)
+" " See https://github.com/randy3k/radian/issues/114#issuecomment-786973490
+" function! _EscapeText_r(text)
+"   call system("cat > ~/.slime_r", a:text)
+"   return ["source('~/.slime_r', echo = TRUE, max.deparse.length = 4095)\r"]
+" endfunction
+
+" Copilot setting
+
+" imap <silent><script><expr> <c-@> copilot#Accept("\<CR>")
+imap <silent><script><expr> <C-J> copilot#Accept("\<CR>")
+
+imap <unique> <C-]> <Plug>(copilot-next)
+" imap <unique> <C-[> <Plug>(copilot-previous) " "DON"T DO THIS. it breaks ESC
+imap <unique> <C-}> <Plug>(copilot-suggest)
+imap <unique> <C-{> <Plug>(copilot-dismiss)
+let g:copilot_no_tab_map = v:true
+
+" ROxygen blocks
+function Getparams()
+    let s:start = line('.')
+    let s:end = search("{")
+    if stridx(getline(s:end),"{") == 0
+        let s:end = s:end - 1
+    endif
+    let s:lines=getline(s:start,s:end)
+    let linesCnt=len(s:lines)
+    let mlines=join(s:lines)
+    let mlines=substitute(mlines," ","","g")
+    let paraFlag1=stridx(mlines,'(')
+    let paraFlag2=strridx(mlines,')')
+    let paraLen=paraFlag2-paraFlag1-1
+    let parastr=strpart(mlines,paraFlag1+1,paraLen)
+    let alist=[]
+    if  stridx(parastr,',') != -1
+       let s:paras=split(parastr,',')
+       let s:idx=0
+       while s:idx < len(s:paras)
+             if stridx(s:paras[s:idx],'=') != -1
+                  let s:realpara = split(s:paras[s:idx],'=')[0]
+             else
+                  let s:realpara = s:paras[s:idx]
+             endif
+             "strip the leading blanks
+             "call append(s:start - 1 + s:idx , "#' @param " . s:realpara)
+             call add(alist,s:realpara)
+             let s:idx = s:idx + 1
+       endwhile
+    else
+       "call append(s:start-1,parastr) 
+       if parastr != ""
+          call add(alist,parastr)
+       endif
+    endif
+    return alist
+endfunction
+
+function  Rdoc()
+    let s:wd=expand("")
+    let s:lineNo=line('.')-1
+    let plist=Getparams()
+    call append(s:lineNo,"#' title ")
+    call append(s:lineNo + 1,"#'")
+    call append(s:lineNo + 2,"#' description")
+    call append(s:lineNo + 3,"#'")
+    let s:idx =0
+    while s:idx < len(plist)
+        call append(s:lineNo + 4 + s:idx , "#' @param " . plist[s:idx] . " value")
+        let s:idx = s:idx + 1
+    endwhile
+    call append(s:lineNo + 4 + s:idx,"#' @return returndes")
+    call append(s:lineNo + 4 + s:idx + 1,"#' @export")
+endfunction
+
+" Python Settings
+let g:python3_host_prog = '/Users/aaxthelm/.config/nvim/nvim-venv/bin/python3'
