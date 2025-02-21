@@ -5,6 +5,8 @@ tmux/plugins/
 nvim/plugged/
 coc/
 mume/
+# ignore nvim pyenv
+nvim/nvim-venv/
 
 # ignore karabiner automatic backups
 karabiner/automatic_backups/
@@ -24,3 +26,8 @@ configstore/
 
 # ignore radian history
 radian/history
+
+# ignore asciinema/install-id
+asciinema/install-id
+
+

@@ -1,7 +1,0 @@
-{
-    "jobs_tab_visibility": "shown",
-    "default_project_location": "~/Downloads",
-    "new_proj_git_init": true,
-    "initial_working_directory": "~",
-    "posix_terminal_shell": "zsh"
-}
