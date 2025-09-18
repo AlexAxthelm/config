@@ -1,0 +1,36 @@
+{
+  "schemes" : [
+    {
+      "if" : {
+        "device" : {
+          "category" : "mouse",
+          "productID" : "0xc24a",
+          "vendorID" : "0x46d",
+          "productName" : "Gaming Mouse G600",
+          "serialNumber" : "80091A9E73FE0017"
+        }
+      },
+      "buttons" : {
+        "mappings" : [
+          {
+            "button" : 3,
+            "option" : false,
+            "control" : false,
+            "action" : "mouse.button.back",
+            "shift" : false,
+            "command" : false
+          },
+          {
+            "action" : "mouse.button.forward",
+            "command" : false,
+            "control" : false,
+            "shift" : false,
+            "button" : 4,
+            "option" : false
+          }
+        ]
+      }
+    }
+  ],
+  "$schema" : "https:\/\/schema.linearmouse.app\/0.10.0"
+}
