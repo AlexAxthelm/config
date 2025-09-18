@@ -558,3 +558,5 @@ endfunction
 
 " Python Settings
 let g:python3_host_prog = '/Users/aaxthelm/.config/nvim/nvim-venv/bin/python3'
+
+let g:surround_{char2nr('b')} = "**\r**"
