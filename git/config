@@ -7,12 +7,13 @@
   # Command shortcuts
 	cob = checkout -b
 	com = checkout main
+	cod = checkout develop
 	pushall = !git remote | xargs -L1 git push --all
   co = checkout
   lg = log --graph --decorate --oneline --all
   # pull all prune, and delete local brnaches
   prune-remotes = !$XDG_CONFIG_HOME/git/scripts/prune-remotes.sh
-  pap = !git pull --all --prune && git branch --merged=main | grep -v '^[ *]*main$' >/tmp/merged-branches && $EDITOR /tmp/merged-branches && xargs git branch -d </tmp/merged-branches
+  pap = !git pull --all --prune && git branch --merged=main | grep -v '^[ *]*main$' >/tmp/merged-branches && $EDITOR /tmp/merged-branches && xargs git branch -d </tmp/merged-branches && git prune-remotes
   dunk = "!f(){ if [ -z \"$1\" ]; then git diff; else git diff \"$@\"; fi | dunk; }; f"
   trigger = "!f() { git commit -m\"Trigger CI\" --allow-empty;}; f"
   pr = push -u origin HEAD
