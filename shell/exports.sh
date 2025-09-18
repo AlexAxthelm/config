@@ -31,3 +31,4 @@ else
   fi
 fi
 
+. "$XDG_CONFIG_HOME/shell/exports_private.sh"
