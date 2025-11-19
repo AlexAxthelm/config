@@ -216,9 +216,6 @@ set scrolloff=10
 " endif
 colorscheme base16-solarized-light
 
-"" Set default register to the clipboard
-set clipboard^=unnamed
-
 "" Switch syntax highlighting on, when the terminal has colors
 syntax on
 
