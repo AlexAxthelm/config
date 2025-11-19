@@ -1,40 +1,28 @@
 -- ~/.config/nvim/init.lua
--- Minimal, blank-slate Neovim configuration
+-- Minimal Neovim config + plugin manager (lazy.nvim) + clipboard + git signs
 
--- Leader key (optional, but useful for custom maps)
+-- Leader key
 vim.g.mapleader = " "
 
--- Basic settings for a sane baseline
-vim.opt.number = true       -- show line numbers
+-- Basic settings
+vim.opt.number = true
 vim.opt.relativenumber = true
-vim.opt.termguicolors = true -- enable true color support
-
--- Flash yanked region (built-in Neovim feature)
-vim.api.nvim_create_autocmd("TextYankPost", {
-  callback = function()
-    vim.highlight.on_yank({ higroup = "IncSearch", timeout = 200 })
-  end,
-})
-
-----------------------------------------------------------
--- System clipboard integration (pasteboard)
-----------------------------------------------------------
--- Use the system clipboard for all yanks/deletes/puts by default
+vim.opt.termguicolors = true
 vim.opt.clipboard = "unnamedplus"
 
--- Optional, explicit keymaps to interact with the + register
-local map, opts = vim.keymap.set, { noremap = true, silent = true }
-map({"n","x"}, "<leader>y", '"+y', opts) -- yank to system clipboard
-map("n", "<leader>Y", '"+Y', opts)
-map({"n","x"}, "<leader>p", '"+p', opts) -- paste from system clipboard
-map({"n","x"}, "<leader>P", '"+P', opts)
+-- Optional explicit clipboard maps
+local map, mopts = vim.keymap.set, { noremap = true, silent = true }
+map({"n","x"}, "<leader>y", '"+y', mopts)
+map("n", "<leader>Y", '"+Y', mopts)
+map({"n","x"}, "<leader>p", '"+p', mopts)
+map({"n","x"}, "<leader>P", '"+P', mopts)
 
-
-
-
-----------------------------------------------------------
--- Plugins
-----------------------------------------------------------
+-- Highlight on yank (built-in Neovim feature)
+vim.api.nvim_create_autocmd("TextYankPost", {
+	callback = function()
+		vim.highlight.on_yank({ higroup = "IncSearch", timeout = 150 })
+	end,
+})
 
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -46,8 +34,38 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-
--- Plugins (minimal): yank highlight only, lazy-loaded on TextYankPost
 require("lazy").setup({
+	{
+		"lewis6991/gitsigns.nvim",
+		event = { "BufReadPre", "BufNewFile" },
+		opts = {
+			signs = {
+				add = { text = "│" },
+				change = { text = "│" },
+				delete = { text = "_" },
+				topdelete = { text = "‾" },
+				changedelete = { text = "~" },
+			},
+			current_line_blame = true,
+			on_attach = function(bufnr)
+				local gs = package.loaded.gitsigns
+				local function map(mode, l, r, desc)
+					vim.keymap.set(mode, l, r, { buffer = bufnr, desc = desc })
+				end
+				map('n', ']c', function()
+					if vim.wo.diff then return ']c' end
+					vim.schedule(function() gs.next_hunk() end)
+					return '<Ignore>'
+				end, 'Next hunk')
+				map('n', '[c', function()
+					if vim.wo.diff then return '[c' end
+					vim.schedule(function() gs.prev_hunk() end)
+					return '<Ignore>'
+				end, 'Prev hunk')
+				map('n', '<leader>hs', gs.stage_hunk, 'Stage hunk')
+				map('n', '<leader>hr', gs.reset_hunk, 'Reset hunk')
+				map('n', '<leader>hp', gs.preview_hunk, 'Preview hunk')
+			end,
+		},
+	},
 })
-

@@ -6,7 +6,6 @@ call plug#begin('~/.config/nvim/plugged')
 " plugin.filesystem 
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
-Plug 'airblade/vim-gitgutter'
 
 " plugin.ui 
 " Plug 'vim-airline/vim-airline'
