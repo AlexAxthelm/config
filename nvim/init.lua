@@ -1,5 +1,4 @@
 -- ~/.config/nvim/init.lua
--- Minimal Neovim config + plugin manager (lazy.nvim) + clipboard + git signs
 
 -- Leader key
 vim.g.mapleader = " "
@@ -35,6 +34,17 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
+	-- Colors: Base16 Solarized Light
+	{
+		"RRethy/nvim-base16",
+		priority = 1000,      -- load early
+		config = function()
+			vim.o.background = "light"
+			vim.cmd.colorscheme("base16-solarized-light")
+		end,
+	},
+
+	-- Git signs
 	{
 		"lewis6991/gitsigns.nvim",
 		event = { "BufReadPre", "BufNewFile" },
