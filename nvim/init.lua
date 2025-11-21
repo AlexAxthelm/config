@@ -78,4 +78,10 @@ require("lazy").setup({
 			end,
 		},
 	},
+
+	-- tmux navigation (like your old setup). Lazy-loads on first Ctrl-h/j/k/l.
+	{
+		"christoomey/vim-tmux-navigator",
+		keys = { "<C-h>", "<C-j>", "<C-k>", "<C-l>" },
+	},
 })
