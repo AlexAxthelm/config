@@ -44,40 +44,73 @@ require("lazy").setup({
 		end,
 	},
 
-	-- Git signs
-	{
-		"lewis6991/gitsigns.nvim",
-		event = { "BufReadPre", "BufNewFile" },
-		opts = {
-			signs = {
-				add = { text = "│" },
-				change = { text = "│" },
-				delete = { text = "_" },
-				topdelete = { text = "‾" },
-				changedelete = { text = "~" },
-			},
-			current_line_blame = true,
-			on_attach = function(bufnr)
-				local gs = package.loaded.gitsigns
-				local function map(mode, l, r, desc)
-					vim.keymap.set(mode, l, r, { buffer = bufnr, desc = desc })
-				end
-				map('n', ']c', function()
-					if vim.wo.diff then return ']c' end
-					vim.schedule(function() gs.next_hunk() end)
-					return '<Ignore>'
-				end, 'Next hunk')
-				map('n', '[c', function()
-					if vim.wo.diff then return '[c' end
-					vim.schedule(function() gs.prev_hunk() end)
-					return '<Ignore>'
-				end, 'Prev hunk')
-				map('n', '<leader>hs', gs.stage_hunk, 'Stage hunk')
-				map('n', '<leader>hr', gs.reset_hunk, 'Reset hunk')
-				map('n', '<leader>hp', gs.preview_hunk, 'Preview hunk')
-			end,
-		},
-	},
+-- Git signs (gitgutter-like signs + extra features)
+  {
+    "lewis6991/gitsigns.nvim",
+    event = { "BufReadPre", "BufNewFile" },
+    opts = {
+      -- Expressive signs similar to gitgutter
+      signs = {
+        add          = { text = "+" },
+        change       = { text = "~" },
+        delete       = { text = "_" },
+        topdelete    = { text = "‾" },
+        changedelete = { text = "~" },
+      },
+      signcolumn = true,
+      numhl = true,          -- set to true if you prefer number column highlighting
+      linehl = false,         -- set to true to highlight entire changed lines
+      word_diff = true,       -- intra-line diff for changed hunks
+
+      -- Blame (inline, subtle, at end of line)
+      current_line_blame = true,
+      current_line_blame_opts = { delay = 500, virt_text_pos = 'eol' },
+      -- current_line_blame_formatter = '<author>, <author_time:%Y-%m-%d> • <summary>',
+
+      -- Performance / behavior
+      watch_gitdir = { interval = 1000, follow_files = true },
+      attach_to_untracked = true,
+
+      on_attach = function(bufnr)
+        local gs = package.loaded.gitsigns
+        local function nmap(lhs, rhs, desc) vim.keymap.set('n', lhs, rhs, { buffer = bufnr, desc = desc }) end
+        local function vmap(lhs, rhs, desc) vim.keymap.set('v', lhs, rhs, { buffer = bufnr, desc = desc }) end
+
+        -- Hunk navigation
+        nmap(']c', function()
+          if vim.wo.diff then return ']c' end
+          vim.schedule(gs.next_hunk)
+          return '<Ignore>'
+        end, 'Next hunk')
+        nmap('[c', function()
+          if vim.wo.diff then return '[c' end
+          vim.schedule(gs.prev_hunk)
+          return '<Ignore>'
+        end, 'Prev hunk')
+
+        -- Stage / reset (line or visual selection)
+        nmap('<leader>hs', gs.stage_hunk, 'Stage hunk')
+        nmap('<leader>hu', gs.undo_stage_hunk, 'Undo stage hunk')
+        nmap('<leader>hr', gs.reset_hunk, 'Reset hunk')
+        vmap('<leader>hs', function() gs.stage_hunk({ vim.fn.line('.'), vim.fn.line('v') }) end, 'Stage selection')
+        vmap('<leader>hr', function() gs.reset_hunk({ vim.fn.line('.'), vim.fn.line('v') }) end, 'Reset selection')
+        nmap('<leader>hS', gs.stage_buffer, 'Stage buffer')
+        nmap('<leader>hR', gs.reset_buffer, 'Reset buffer')
+
+        -- Info / preview / diff
+        nmap('<leader>hp', gs.preview_hunk, 'Preview hunk')
+        nmap('<leader>hb', gs.blame_line, 'Blame line')
+        nmap('<leader>hd', gs.diffthis, 'Diff this')
+        nmap('<leader>hD', function() gs.diffthis('~') end, 'Diff against HEAD~')
+
+        -- Quick toggles
+        nmap('<leader>tb', gs.toggle_current_line_blame, 'Toggle line blame')
+        nmap('<leader>tn', gs.toggle_numhl, 'Toggle number highlight')
+        nmap('<leader>tl', gs.toggle_linehl, 'Toggle line highlight')
+        nmap('<leader>tw', gs.toggle_word_diff, 'Toggle word diff')
+      end,
+    },
+  },
 
 	-- tmux navigation (like your old setup). Lazy-loads on first Ctrl-h/j/k/l.
 	{
