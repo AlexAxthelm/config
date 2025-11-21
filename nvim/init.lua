@@ -9,6 +9,8 @@ vim.opt.relativenumber = true
 vim.opt.termguicolors = true
 vim.opt.clipboard = "unnamedplus"
 
+vim.opt.completeopt = "menu,menuone,noselect" -- recommended for nvim-cmp UX
+
 -- Optional explicit clipboard maps
 local map, mopts = vim.keymap.set, { noremap = true, silent = true }
 map({"n","x"}, "<leader>y", '"+y', mopts)
@@ -117,4 +119,72 @@ require("lazy").setup({
 		"christoomey/vim-tmux-navigator",
 		keys = { "<C-h>", "<C-j>", "<C-k>", "<C-l>" },
 	},
+
+	-- completion (cmp) — buffer + path sources only
+	{
+		"hrsh7th/nvim-cmp",
+		dependencies = {
+			"L3MON4D3/LuaSnip",      -- snippet engine (required by cmp)
+			"hrsh7th/cmp-buffer",    -- buffer words
+			"hrsh7th/cmp-path",      -- filesystem paths
+		},
+		config = function()
+			local cmp = require('cmp')
+			local luasnip = require('luasnip')
+
+			cmp.setup({
+				snippet = { expand = function(args) luasnip.lsp_expand(args.body) end },
+				mapping = cmp.mapping.preset.insert({
+					['<C-Space>'] = cmp.mapping.complete(),
+					['<CR>']      = cmp.mapping.confirm({ select = true }),
+					['<Tab>']     = cmp.mapping(function(fallback)
+						if cmp.visible() then
+							cmp.select_next_item()
+						elseif luasnip.expand_or_jumpable() then
+							luasnip.expand_or_jump()
+						else
+							fallback()
+						end
+					end, { 'i', 's' }),
+					['<S-Tab>']   = cmp.mapping(function(fallback)
+						if cmp.visible() then
+							cmp.select_prev_item()
+						elseif luasnip.jumpable(-1) then
+							luasnip.jump(-1)
+						else
+							fallback()
+						end
+					end, { 'i', 's' }),
+				}),
+				sources = cmp.config.sources({
+					{ name = 'path' },
+					{ name = 'buffer' },
+				}),
+			})
+		end,
+	},
+
+	-- Fugitive: git porcelain and commit helpers
+	{
+		"tpope/vim-fugitive",
+		cmd = { "Git", "G", "Gdiffsplit", "Gblame", "Glog" }
+	},
+
+
+	-- Committia: show git diff beside commit message buffer
+	{
+		"rhysd/committia.vim",
+		ft = "gitcommit",
+		init = function()
+			-- Only open the fancy layout when Neovim is launched as $GIT_EDITOR
+			-- (keeps things quiet if you open COMMIT_EDITMSG within an existing session)
+			vim.g.committia_open_only_vim_starting = 1
+			-- Wider layouts feel better; tweak to taste
+			vim.g.committia_min_window_width = 120
+		end,
+	},
 })
+
+
+-- Optional: quick key to start a commit inside Neovim
+vim.keymap.set('n', '<leader>gc', ':Git commit<CR>', { silent = true, desc = 'Git commit (Fugitive)' })
