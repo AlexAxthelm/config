@@ -138,11 +138,6 @@ augroup END
 " Allow saving of files as sudo when I forgot to start vim using sudo.
 cmap w!! w !sudo tee > /dev/null %
 
-" I like two char tabstops
-set shiftwidth=2
-set softtabstop=2
-set tabstop=2
-set expandtab
 
 " " Use deoplete.
 " let g:deoplete#enable_at_startup = 1

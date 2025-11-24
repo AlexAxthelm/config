@@ -25,6 +25,24 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	end,
 })
 
+
+-- ── Indentation & wrapping defaults ──────────────────────────────────────────
+vim.opt.expandtab   = true   -- spaces, not literal tabs (globally)
+vim.opt.shiftwidth  = 2      -- >> and autoindent = 2 spaces
+vim.opt.tabstop     = 2      -- a <Tab> shows as 2 spaces
+vim.opt.softtabstop = 2
+vim.opt.textwidth   = 80     -- reflow width for gq
+vim.opt.formatoptions = "jcroql" 
+-- j: remove comment leader when joining
+-- c: auto-wrap comments using textwidth while typing
+-- r: continue comment when hitting <CR>
+-- o: continue comment after 'o' or 'O'
+-- q: allow formatting with gq
+-- l: don’t break long lines in insert if it would split a long word
+
+-- Tip: reindent whole file: gg=G
+-- Tip: reflow to textwidth: gq (e.g., vipgq to format a paragraph)
+
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
