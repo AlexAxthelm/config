@@ -206,6 +206,30 @@ require("lazy").setup({
 		},
 	},
 
+	-- Surround (Lua drop-in for tpope/vim-surround)
+	{
+		"kylechui/nvim-surround",
+		version = "*",
+		event = "VeryLazy",      -- loads after UI settles; instant on first use
+		config = function()
+			require("nvim-surround").setup({})
+		end,
+	},
+
+	-- Comment.nvim (drop-in Lua version of tpope/vim-commentary)
+	{
+		"numToStr/Comment.nvim",
+		event = "VeryLazy",
+		config = function()
+			require("Comment").setup({})
+			-- Default keymaps:
+			--   gcc  → toggle comment on current line
+			--   gc   → toggle comment on selection (visual mode)
+			-- These match vim-commentary muscle memory.
+		end,
+	},
+
+
 })
 
 

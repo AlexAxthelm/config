@@ -28,8 +28,6 @@ Plug 'christoomey/vim-tmux-navigator'
 " plugin.utilities 
 " Plug 'djoshea/vim-autoread'
 Plug 'zef/vim-cycle'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-commentary' "TODO: in vimfiles, if first char is comment, have gcc uncomment, regardless.
 Plug 'tpope/vim-repeat'
 " Plug 'tpope/vim-speeddating'
 " Plug 'junegunn/vim-peekaboo'
