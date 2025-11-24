@@ -20,9 +20,9 @@ map({"n","x"}, "<leader>P", '"+P', mopts)
 
 -- Highlight on yank (built-in Neovim feature)
 vim.api.nvim_create_autocmd("TextYankPost", {
-	callback = function()
-		vim.highlight.on_yank({ higroup = "IncSearch", timeout = 150 })
-	end,
+  callback = function()
+    vim.highlight.on_yank({ higroup = "IncSearch", timeout = 150 })
+  end,
 })
 
 
@@ -46,25 +46,25 @@ vim.opt.formatoptions = "jcroql"
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
-	vim.fn.system({
-		"git", "clone", "--filter=blob:none",
-		"https://github.com/folke/lazy.nvim.git", lazypath
-	})
+  vim.fn.system({
+    "git", "clone", "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git", lazypath
+  })
 end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-	-- Colors: Base16 Solarized Light
-	{
-		"RRethy/nvim-base16",
-		priority = 1000,      -- load early
-		config = function()
-			vim.o.background = "light"
-			vim.cmd.colorscheme("base16-solarized-light")
-		end,
-	},
+  -- Colors: Base16 Solarized Light
+  {
+    "RRethy/nvim-base16",
+    priority = 1000,      -- load early
+    config = function()
+      vim.o.background = "light"
+      vim.cmd.colorscheme("base16-solarized-light")
+    end,
+  },
 
--- Git signs (gitgutter-like signs + extra features)
+  -- Git signs (gitgutter-like signs + extra features)
   {
     "lewis6991/gitsigns.nvim",
     event = { "BufReadPre", "BufNewFile" },
@@ -132,120 +132,120 @@ require("lazy").setup({
     },
   },
 
-	-- tmux navigation (like your old setup). Lazy-loads on first Ctrl-h/j/k/l.
-	{
-		"christoomey/vim-tmux-navigator",
-		keys = { "<C-h>", "<C-j>", "<C-k>", "<C-l>" },
-	},
+  -- tmux navigation (like your old setup). Lazy-loads on first Ctrl-h/j/k/l.
+  {
+    "christoomey/vim-tmux-navigator",
+    keys = { "<C-h>", "<C-j>", "<C-k>", "<C-l>" },
+  },
 
-	-- completion (cmp) — buffer + path sources only
-	{
-		"hrsh7th/nvim-cmp",
-		dependencies = {
-			"L3MON4D3/LuaSnip",      -- snippet engine (required by cmp)
-			"hrsh7th/cmp-buffer",    -- buffer words
-			"hrsh7th/cmp-path",      -- filesystem paths
-		},
-		config = function()
-			local cmp = require('cmp')
-			local luasnip = require('luasnip')
+  -- completion (cmp) — buffer + path sources only
+  {
+    "hrsh7th/nvim-cmp",
+    dependencies = {
+      "L3MON4D3/LuaSnip",      -- snippet engine (required by cmp)
+      "hrsh7th/cmp-buffer",    -- buffer words
+      "hrsh7th/cmp-path",      -- filesystem paths
+    },
+    config = function()
+      local cmp = require('cmp')
+      local luasnip = require('luasnip')
 
-			cmp.setup({
-				snippet = { expand = function(args) luasnip.lsp_expand(args.body) end },
-				mapping = cmp.mapping.preset.insert({
-					['<C-Space>'] = cmp.mapping.complete(),
-					['<CR>']      = cmp.mapping.confirm({ select = true }),
-					['<Tab>']     = cmp.mapping(function(fallback)
-						if cmp.visible() then
-							cmp.select_next_item()
-						elseif luasnip.expand_or_jumpable() then
-							luasnip.expand_or_jump()
-						else
-							fallback()
-						end
-					end, { 'i', 's' }),
-					['<S-Tab>']   = cmp.mapping(function(fallback)
-						if cmp.visible() then
-							cmp.select_prev_item()
-						elseif luasnip.jumpable(-1) then
-							luasnip.jump(-1)
-						else
-							fallback()
-						end
-					end, { 'i', 's' }),
-				}),
-				sources = cmp.config.sources({
-					{ name = 'path' },
-					{ name = 'buffer' },
-				}),
-			})
-		end,
-	},
+      cmp.setup({
+        snippet = { expand = function(args) luasnip.lsp_expand(args.body) end },
+        mapping = cmp.mapping.preset.insert({
+          ['<C-Space>'] = cmp.mapping.complete(),
+          ['<CR>']      = cmp.mapping.confirm({ select = true }),
+          ['<Tab>']     = cmp.mapping(function(fallback)
+            if cmp.visible() then
+              cmp.select_next_item()
+            elseif luasnip.expand_or_jumpable() then
+              luasnip.expand_or_jump()
+            else
+              fallback()
+            end
+          end, { 'i', 's' }),
+          ['<S-Tab>']   = cmp.mapping(function(fallback)
+            if cmp.visible() then
+              cmp.select_prev_item()
+            elseif luasnip.jumpable(-1) then
+              luasnip.jump(-1)
+            else
+              fallback()
+            end
+          end, { 'i', 's' }),
+        }),
+        sources = cmp.config.sources({
+          { name = 'path' },
+          { name = 'buffer' },
+        }),
+      })
+    end,
+  },
 
-	-- Fugitive: git porcelain and commit helpers
-	{
-		"tpope/vim-fugitive",
-		cmd = { "Git", "G", "Gdiffsplit", "Gblame", "Glog" }
-	},
+  -- Fugitive: git porcelain and commit helpers
+  {
+    "tpope/vim-fugitive",
+    cmd = { "Git", "G", "Gdiffsplit", "Gblame", "Glog" }
+  },
 
 
-	-- Committia: show git diff beside commit message buffer
-	{
-		"rhysd/committia.vim",
-		ft = "gitcommit",
-		init = function()
-			-- Only open the fancy layout when Neovim is launched as $GIT_EDITOR
-			-- (keeps things quiet if you open COMMIT_EDITMSG within an existing session)
-			vim.g.committia_open_only_vim_starting = 1
-			-- Wider layouts feel better; tweak to taste
-			vim.g.committia_min_window_width = 120
-		end,
-	},
+  -- Committia: show git diff beside commit message buffer
+  {
+    "rhysd/committia.vim",
+    ft = "gitcommit",
+    init = function()
+      -- Only open the fancy layout when Neovim is launched as $GIT_EDITOR
+      -- (keeps things quiet if you open COMMIT_EDITMSG within an existing session)
+      vim.g.committia_open_only_vim_starting = 1
+      -- Wider layouts feel better; tweak to taste
+      vim.g.committia_min_window_width = 120
+    end,
+  },
 
-	------------------------------------------------------------------
-	-- TOP BAR (tabs) & ICONS
-	------------------------------------------------------------------
+  ------------------------------------------------------------------
+  -- TOP BAR (tabs) & ICONS
+  ------------------------------------------------------------------
 
-	-- Bufferline as a tab bar (buffers as tabs). Shows filename, modified, close, etc.
-	{
-		"akinsho/bufferline.nvim",
-		version = "*",
-		event = "VeryLazy",
-		dependencies = { "nvim-tree/nvim-web-devicons" },
-		opts = {
-			options = {
-				show_buffer_close_icons = false,
-				show_close_icon = false,
-				diagnostics = false,
-				separator_style = "thin",
-				always_show_bufferline = true,
-				offsets = {},
-			},
-		},
-	},
+  -- Bufferline as a tab bar (buffers as tabs). Shows filename, modified, close, etc.
+  {
+    "akinsho/bufferline.nvim",
+    version = "*",
+    event = "VeryLazy",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    opts = {
+      options = {
+        show_buffer_close_icons = false,
+        show_close_icon = false,
+        diagnostics = false,
+        separator_style = "thin",
+        always_show_bufferline = true,
+        offsets = {},
+      },
+    },
+  },
 
-	-- Surround (Lua drop-in for tpope/vim-surround)
-	{
-		"kylechui/nvim-surround",
-		version = "*",
-		event = "VeryLazy",      -- loads after UI settles; instant on first use
-		config = function()
-			require("nvim-surround").setup({})
-		end,
-	},
+  -- Surround (Lua drop-in for tpope/vim-surround)
+  {
+    "kylechui/nvim-surround",
+    version = "*",
+    event = "VeryLazy",      -- loads after UI settles; instant on first use
+    config = function()
+      require("nvim-surround").setup({})
+    end,
+  },
 
-	-- Comment.nvim (drop-in Lua version of tpope/vim-commentary)
-	{
-		"numToStr/Comment.nvim",
-		event = "VeryLazy",
-		config = function()
-			require("Comment").setup({})
-			-- Default keymaps:
-			--   gcc  → toggle comment on current line
-			--   gc   → toggle comment on selection (visual mode)
-			-- These match vim-commentary muscle memory.
-		end,
-	},
+  -- Comment.nvim (drop-in Lua version of tpope/vim-commentary)
+  {
+    "numToStr/Comment.nvim",
+    event = "VeryLazy",
+    config = function()
+      require("Comment").setup({})
+      -- Default keymaps:
+      --   gcc  → toggle comment on current line
+      --   gc   → toggle comment on selection (visual mode)
+      -- These match vim-commentary muscle memory.
+    end,
+  },
 
 
 })
