@@ -146,9 +146,6 @@ set softtabstop=2
 set tabstop=2
 set expandtab
 
-"" prevent window repositioning on open new tab by always having tabline
-set showtabline=2
-
 " " Use deoplete.
 " let g:deoplete#enable_at_startup = 1
 " let g:tmuxcomplete#trigger = ''

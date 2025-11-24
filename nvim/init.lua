@@ -183,6 +183,29 @@ require("lazy").setup({
 			vim.g.committia_min_window_width = 120
 		end,
 	},
+
+	------------------------------------------------------------------
+	-- TOP BAR (tabs) & ICONS
+	------------------------------------------------------------------
+
+	-- Bufferline as a tab bar (buffers as tabs). Shows filename, modified, close, etc.
+	{
+		"akinsho/bufferline.nvim",
+		version = "*",
+		event = "VeryLazy",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+		opts = {
+			options = {
+				show_buffer_close_icons = false,
+				show_close_icon = false,
+				diagnostics = false,
+				separator_style = "thin",
+				always_show_bufferline = true,
+				offsets = {},
+			},
+		},
+	},
+
 })
 
 
