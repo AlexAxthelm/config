@@ -11,6 +11,11 @@ vim.opt.clipboard = "unnamedplus"
 
 vim.opt.completeopt = "menu,menuone,noselect" -- recommended for nvim-cmp UX
 
+-- Prefer vertical splits for diffs and windows
+vim.opt.diffopt:append("vertical")
+vim.opt.splitright = true
+vim.opt.splitbelow = true
+
 -- Optional explicit clipboard maps
 local map, mopts = vim.keymap.set, { noremap = true, silent = true }
 map({"n","x"}, "<leader>y", '"+y', mopts)
@@ -214,11 +219,12 @@ require("lazy").setup({
     dependencies = { "nvim-tree/nvim-web-devicons" },
     opts = {
       options = {
-        show_buffer_close_icons = false,
+        show_buffer_close_icons = true,
         show_close_icon = false,
         diagnostics = false,
         separator_style = "thin",
         always_show_bufferline = true,
+        mode = "tabs",
         offsets = {},
       },
     },
