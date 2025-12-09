@@ -150,6 +150,7 @@ require("lazy").setup({
       "L3MON4D3/LuaSnip",      -- snippet engine (required by cmp)
       "hrsh7th/cmp-buffer",    -- buffer words
       "hrsh7th/cmp-path",      -- filesystem paths
+      "andersevenrud/cmp-tmux" -- completion from tmux panes
     },
     config = function()
       local cmp = require('cmp')
@@ -180,8 +181,17 @@ require("lazy").setup({
           end, { 'i', 's' }),
         }),
         sources = cmp.config.sources({
-          { name = 'path' },
-          { name = 'buffer' },
+          { name = 'path' },     -- filesystem paths
+          { name = 'tmux' },     -- words from tmux panes
+          {
+            name = 'buffer',     -- common words from all open buffers
+            option = {
+              -- Use all listed buffers as completion sources, not just the current one.
+              get_bufnrs = function()
+                return vim.api.nvim_list_bufs()
+              end,
+            },
+          },
         }),
       })
     end,

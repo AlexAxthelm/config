@@ -50,9 +50,6 @@ Plug 'godlygeek/tabular'
 " Plug 'myusuf3/numbers.vim'
 " Plug 'kshenoy/vim-signature'
 " Plug 'editorconfig/editorconfig-vim'
-"
-" plugin.completion 
-Plug 'wellle/tmux-complete.vim'
 
 " " plugin.language.tools 
 Plug 'jpalardy/vim-slime'
