@@ -6,7 +6,6 @@ call plug#begin('~/.config/nvim/plugged')
 " plugin.filesystem 
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
-Plug 'airblade/vim-gitgutter'
 
 " plugin.ui 
 " Plug 'vim-airline/vim-airline'
@@ -29,8 +28,6 @@ Plug 'christoomey/vim-tmux-navigator'
 " plugin.utilities 
 " Plug 'djoshea/vim-autoread'
 Plug 'zef/vim-cycle'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-commentary' "TODO: in vimfiles, if first char is comment, have gcc uncomment, regardless.
 Plug 'tpope/vim-repeat'
 " Plug 'tpope/vim-speeddating'
 " Plug 'junegunn/vim-peekaboo'
@@ -53,9 +50,6 @@ Plug 'godlygeek/tabular'
 " Plug 'myusuf3/numbers.vim'
 " Plug 'kshenoy/vim-signature'
 " Plug 'editorconfig/editorconfig-vim'
-"
-" plugin.completion 
-Plug 'wellle/tmux-complete.vim'
 
 " " plugin.language.tools 
 Plug 'jpalardy/vim-slime'
@@ -141,14 +135,6 @@ augroup END
 " Allow saving of files as sudo when I forgot to start vim using sudo.
 cmap w!! w !sudo tee > /dev/null %
 
-" I like two char tabstops
-set shiftwidth=2
-set softtabstop=2
-set tabstop=2
-set expandtab
-
-"" prevent window repositioning on open new tab by always having tabline
-set showtabline=2
 
 " " Use deoplete.
 " let g:deoplete#enable_at_startup = 1
@@ -215,9 +201,6 @@ set scrolloff=10
 "   colorscheme base16-$BASE16_THEME
 " endif
 colorscheme base16-solarized-light
-
-"" Set default register to the clipboard
-set clipboard^=unnamed
 
 "" Switch syntax highlighting on, when the terminal has colors
 syntax on

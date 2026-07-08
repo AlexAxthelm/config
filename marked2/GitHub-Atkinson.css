@@ -1,0 +1,380 @@
+/*
+   Title: GitHub Atkinson
+   Author: Alex Axthelm
+   Description: GitHub-flavored markdown style set in Atkinson Hyperlegible,
+                with Atkinson Hyperlegible Mono for code.
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&family=Atkinson+Hyperlegible+Mono:ital,wght@0,400;0,700;1,400&display=swap');
+
+/* ── Reset / base ─────────────────────────────────────────────────────────── */
+
+body {
+    -webkit-font-smoothing: antialiased;
+    font-family: "Atkinson Hyperlegible Next", Arial, sans-serif;
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 1.6;
+    color: #1f2328;
+    background: #ffffff;
+    margin: 0;
+    padding: 0;
+}
+
+#wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 32px 40px;
+    box-sizing: border-box;
+}
+
+body, p, td, div, li {
+    font-family: "Atkinson Hyperlegible Next", Arial, sans-serif;
+    word-wrap: break-word;
+}
+
+/* ── Headings ─────────────────────────────────────────────────────────────── */
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Atkinson Hyperlegible Next", Arial, sans-serif;
+    font-weight: 500;
+    line-height: 1.25;
+    margin-top: 24px;
+    margin-bottom: 16px;
+    color: #1f2328;
+}
+
+h1 {
+    font-size: 2em;
+    padding-bottom: 0.3em;
+    border-bottom: 1px solid #d1d9e0;
+}
+
+h2 {
+    font-size: 1.5em;
+    padding-bottom: 0.3em;
+    border-bottom: 1px solid #d1d9e0;
+}
+
+h3 { font-size: 1.25em; }
+h4 { font-size: 1em; }
+h5 { font-size: 0.875em; }
+h6 { font-size: 0.85em; color: #59636e; }
+
+/* ── Paragraphs & inline ──────────────────────────────────────────────────── */
+
+p {
+    margin-top: 0;
+    margin-bottom: 16px;
+    font-size: 1em;
+    line-height: 1.6;
+}
+
+strong { font-weight: 600; }
+em     { font-style: italic; }
+
+/* ── Links ────────────────────────────────────────────────────────────────── */
+
+a {
+    color: #0969da;
+    text-decoration: none;
+    -webkit-transition: color .15s ease-in-out;
+    transition: color .15s ease-in-out;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: #0550ae;
+}
+
+/* ── Lists ────────────────────────────────────────────────────────────────── */
+
+ul, ol {
+    margin-top: 0;
+    margin-bottom: 16px;
+    padding-left: 2em;
+}
+
+li {
+    font-size: 1em;
+    line-height: 1.6;
+    margin-bottom: 4px;
+}
+
+li > p { margin-top: 8px; }
+
+li li { font-size: 100%; }
+
+ul ul, ul ol, ol ol, ol ul {
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+
+/* ── Blockquote ───────────────────────────────────────────────────────────── */
+
+blockquote {
+    margin: 0 0 16px 0;
+    padding: 0 1em;
+    color: #59636e;
+    border-left: 4px solid #d1d9e0;
+}
+
+blockquote p {
+    font-size: 1em;
+    font-style: normal;
+    line-height: 1.6;
+}
+
+blockquote > :last-child { margin-bottom: 0; }
+
+/* ── Code (inline) ────────────────────────────────────────────────────────── */
+
+code {
+    font-family: "Atkinson Hyperlegible Mono", "Courier New", monospace;
+    font-size: 0.875em;
+    padding: 0.2em 0.4em;
+    background: #f6f8fa;
+    border-radius: 6px;
+    color: #1f2328;
+    white-space: break-spaces;
+}
+
+/* ── Code blocks ──────────────────────────────────────────────────────────── */
+
+pre {
+    font-family: "Atkinson Hyperlegible Mono", "Courier New", monospace;
+    font-size: 0.875em;
+    line-height: 1.5;
+    background: #f6f8fa;
+    border-radius: 6px;
+    padding: 16px;
+    overflow: auto;
+    margin-top: 0;
+    margin-bottom: 16px;
+    word-wrap: normal;
+    white-space: pre;
+}
+
+pre code {
+    font-family: "Atkinson Hyperlegible Mono", "Courier New", monospace;
+    font-size: 1em;
+    background: transparent;
+    padding: 0;
+    border-radius: 0;
+    white-space: pre;
+    color: #1f2328;
+}
+
+/* ── Horizontal rule ──────────────────────────────────────────────────────── */
+
+hr {
+    border: none;
+    border-top: 1px solid #d1d9e0;
+    margin: 24px 0;
+    height: 0;
+}
+
+/* ── Tables ───────────────────────────────────────────────────────────────── */
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    margin-bottom: 16px;
+    display: table;
+    overflow: auto;
+    border: none;
+}
+
+caption { display: table-caption; font-weight: 700; }
+col      { display: table-column; }
+colgroup { display: table-column-group; }
+tbody    { display: table-row-group; }
+tfoot    { display: table-footer-group; }
+thead    { display: table-header-group; }
+td, th   { display: table-cell; }
+tr       { display: table-row; }
+
+table th, table td {
+    font-size: 1em;
+    padding: 6px 13px;
+    border: 1px solid #d1d9e0;
+    line-height: 1.5;
+}
+
+table th {
+    font-weight: 400;
+    background: #f6f8fa;
+}
+
+table tr {
+    background: #ffffff;
+    border-top: 1px solid #d1d9e0;
+}
+
+table tr:nth-child(even) {
+    background: #f6f8fa;
+}
+
+/* Override overly specific defaults */
+table tr:nth-child(odd),
+table th:nth-child(odd),
+table td:nth-child(odd) {
+    background: inherit;
+}
+
+/* ── Images ───────────────────────────────────────────────────────────────── */
+
+#wrapper img {
+    max-width: 100%;
+    height: auto;
+    box-sizing: content-box;
+}
+
+/* ── Definition lists ─────────────────────────────────────────────────────── */
+
+dt { font-weight: 400; }
+dd { margin-bottom: 1em; }
+
+/* ── Footnotes ────────────────────────────────────────────────────────────── */
+
+.footnote, sup, sub, a.footnote {
+    font-size: 0.75em;
+    vertical-align: super;
+    line-height: 1;
+    position: relative;
+}
+
+sub { vertical-align: sub; top: -1px; }
+
+/* ── Figures ──────────────────────────────────────────────────────────────── */
+
+figure {
+    display: inline-block;
+    position: relative;
+    margin: 1em 0 2em;
+}
+
+figcaption {
+    font-style: italic;
+    font-size: 0.875em;
+    text-align: center;
+    color: #59636e;
+    margin-top: 8px;
+}
+
+/* ── Print ────────────────────────────────────────────────────────────────── */
+
+@media print {
+    body {
+        overflow: auto;
+        color: #1f2328;
+        background: #fff;
+    }
+
+    #wrapper {
+        padding: 10px;
+        max-width: 100%;
+    }
+
+    img, pre, blockquote, table, figure, p {
+        page-break-inside: avoid;
+    }
+
+    a { color: #0969da; }
+}
+
+/* ── Dark mode (Marked 2 "inverted" class) ────────────────────────────────── */
+
+@media screen {
+    .inverted,
+    .inverted #wrapper {
+        background: #0d1117;
+        color: #e6edf3;
+    }
+
+    .inverted p,
+    .inverted td,
+    .inverted li,
+    .inverted h1,
+    .inverted h2,
+    .inverted h3,
+    .inverted h4,
+    .inverted h5,
+    .inverted h6,
+    .inverted pre,
+    .inverted th,
+    .inverted caption,
+    .inverted dd,
+    .inverted dt {
+        color: #e6edf3 !important;
+    }
+
+    .inverted h6 { color: #8d96a0 !important; }
+
+    .inverted h1,
+    .inverted h2 {
+        border-bottom-color: #30363d !important;
+    }
+
+    .inverted code {
+        background: #161b22;
+        color: #e6edf3;
+    }
+
+    .inverted pre {
+        background: #161b22;
+    }
+
+    .inverted pre code {
+        background: transparent;
+        color: #e6edf3;
+    }
+
+    .inverted blockquote {
+        border-left-color: #3d444d;
+        color: #8d96a0;
+    }
+
+    .inverted hr {
+        border-top-color: #30363d !important;
+    }
+
+    .inverted table th {
+        background: #161b22;
+    }
+
+    .inverted table tr {
+        background: #0d1117;
+        border-top-color: #3d444d;
+    }
+
+    .inverted table tr:nth-child(even) {
+        background: #161b22;
+    }
+
+    .inverted table th,
+    .inverted table td {
+        border-color: #3d444d;
+    }
+
+    .inverted a { color: #4493f8; }
+    .inverted a:hover { color: #79b8ff; }
+
+    .inverted figcaption { color: #8d96a0; }
+
+    /* Selection colors */
+    ::selection                         { background: rgba(9, 105, 218, 0.2); }
+    h1::selection                       { background: rgba(9, 105, 218, 0.25); }
+    h2::selection                       { background: rgba(9, 105, 218, 0.25); }
+    h3::selection, h4::selection,
+    h5::selection, h6::selection        { background: rgba(9, 105, 218, 0.2); }
+    code::selection                     { background: rgba(0,0,0,0.7); color: #eee; }
+    code span::selection                { background: rgba(0,0,0,0.7) !important; color: #eee !important; }
+    a::selection                        { background: rgba(255, 230, 102, 0.2); }
+    .inverted a::selection              { background: rgba(255, 230, 102, 0.5); }
+    td::selection, th::selection,
+    caption::selection                  { background: rgba(9, 105, 218, 0.2); }
+
+    #wrapper { padding: 32px 40px; }
+}
