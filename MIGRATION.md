@@ -62,15 +62,15 @@ own versions on demand — do **not** copy version lists from the old Mac.
 - [ ] Recreate `~/.config/R/Renviron` from `R/Renviron.example` with a fresh R PAT
       (only if you use R).
 - [ ] Open a fresh `zsh` → antidote auto-installs zsh plugins.
-- [ ] First-run plugin managers:
-  - [ ] `nvim` → `:Lazy sync`, then `:Mason` to install language servers.
-  - [ ] New tmux session → `prefix + I` (TPM installs plugins).
 - [ ] Set up version managers (mostly from Brewfile): `uv` (Python), `fnm` (Node),
       `rustup`, `ruby`. Then:
   - [ ] `fnm install --lts && fnm default lts-latest` → gives nvim/Mason a global node.
   - [ ] `rustup default stable` → provides cargo, then re-run `brew bundle install`
         to pick up the `cargo` tools (`cargo-nextest`, `cargo-swift`, `cargo-xcode`).
   - [ ] `uv` needs no default; it fetches interpreters per project on demand.
+- [ ] First-run plugin managers:
+  - [ ] `nvim` → `:Lazy sync`, then `:Mason` to install language servers.
+  - [ ] New tmux session → `prefix + I` (TPM installs plugins).
 - [ ] Reinstall only the standalone `uv tool` (or `pipx`) apps you actually use.
 - [ ] Re-authenticate: `gh auth login`, GitHub Copilot, `az login` (azure-cli),
       any other cloud CLIs.
