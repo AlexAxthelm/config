@@ -74,10 +74,6 @@ own versions on demand — do **not** copy version lists from the old Mac.
 - [ ] Reinstall only the standalone `uv tool` (or `pipx`) apps you actually use.
 - [ ] Re-authenticate: `gh auth login`, GitHub Copilot, `az login` (azure-cli),
       any other cloud CLIs.
-- [ ] **Node: nvm → fnm.** Remove the `NVM_DIR` block from `shell/zsh/zshrc` and the
-      `NVM_DIR` lines from `shell/exports.sh`; add fnm's init hook instead:
-      `eval "$(fnm env --use-on-cd)"`. fnm reads `.nvmrc` / `.node-version`, so
-      per-project versions just work.
 - [ ] Reconcile remaining machine-specific paths in `shell/exports.sh`: verify
       `openjdk@17`, the ruby gem path, and the powerline `python3.11` site-packages
       path all resolve on the M5.
