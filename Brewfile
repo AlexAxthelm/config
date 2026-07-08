@@ -74,6 +74,7 @@ brew "wget"
 brew "xcodegen"
 # Linter for YAML files
 brew "yamllint"
+
 # Family of tools to build, test and package software
 cask "docker-desktop"
 # Cross-platform Text Expander written in Rust
@@ -92,6 +93,8 @@ cask "keepingyouawake"
 cask "localsend"
 # Scientific and technical publishing system built on Pandoc
 cask "quarto"
+# Menu Bar manager
+cask "thaw"
 # Multimedia player
 cask "vlc"
 # GPU-accelerated cross-platform terminal emulator and multiplexer
