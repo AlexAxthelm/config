@@ -89,6 +89,8 @@ cask "font-hack-nerd-font"
 cask "font-monaspace"
 # 2D and 3D game engine
 cask "godot"
+# Convert caps lock / a modifier to a hyper key
+cask "hyperkey"
 # Tool to prevent the system from going into sleep mode
 cask "keepingyouawake"
 # Open-source cross-platform alternative to AirDrop
