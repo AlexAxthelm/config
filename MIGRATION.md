@@ -16,10 +16,14 @@ running `symlink.sh` restores almost everything, because:
 So the real work is the **gaps** — secrets and toolchains that are deliberately not in
 the repo — plus a few machine-specific paths to reconcile.
 
-**Toolchain philosophy:** install version managers *clean* (pyenv, rustup, ruby,
-`fnm`, `uv`, `pipx`) with at most one current default each. Do **not** copy version
-lists from the old Mac — projects install their own pinned versions on demand as
-they're brought over.
+**Toolchain philosophy:** install version managers *clean* and let projects pin their
+own versions on demand — do **not** copy version lists from the old Mac.
+- **Python → `uv`** (manages interpreters *and* tools; replaces pyenv + pipx).
+- **Node → `fnm`** (set one default LTS; projects override via `.nvmrc`).
+- **Rust → `rustup`**, **Ruby → brew**.
+- The only reason a *global* Python/Node is needed is nvim: Mason installs node-based
+  LSPs (`ts_ls`, `pyright`) so it needs `fnm`'s default node on PATH. nvim linters/
+  formatters go through **Mason** (`nvim/init.lua` → `ensure_installed`), never global npm.
 
 ---
 
@@ -59,9 +63,13 @@ they're brought over.
 - [ ] First-run plugin managers:
   - [ ] `nvim` → `:Lazy sync`, then `:Mason` to install language servers.
   - [ ] New tmux session → `prefix + I` (TPM installs plugins).
-- [ ] Install version managers **clean** (via Brewfile where possible): pyenv, rustup,
-      ruby, `fnm`, `uv`, `pipx`. Set at most one current default each.
-- [ ] Reinstall only the standalone `uv tool` / `pipx` apps you actually use.
+- [ ] Set up version managers (mostly from Brewfile): `uv` (Python), `fnm` (Node),
+      `rustup`, `ruby`. Then:
+  - [ ] `fnm install --lts && fnm default lts-latest` → gives nvim/Mason a global node.
+  - [ ] `rustup default stable` → provides cargo, then re-run `brew bundle install`
+        to pick up the `cargo` tools (`cargo-nextest`, `cargo-swift`, `cargo-xcode`).
+  - [ ] `uv` needs no default; it fetches interpreters per project on demand.
+- [ ] Reinstall only the standalone `uv tool` (or `pipx`) apps you actually use.
 - [ ] Re-authenticate: `gh auth login`, GitHub Copilot, `az login` (azure-cli),
       any other cloud CLIs.
 - [ ] **Node: nvm → fnm.** Remove the `NVM_DIR` block from `shell/zsh/zshrc` and the
