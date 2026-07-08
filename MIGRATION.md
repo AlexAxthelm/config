@@ -52,7 +52,9 @@ own versions on demand — do **not** copy version lists from the old Mac.
 - [ ] SSH: restore or generate keys, `ssh-add`, add the public key to GitHub.
       *(Needed before cloning the SSH remote.)*
 - [ ] Clone config: `git clone git@github.com:AlexAxthelm/config.git ~/.config`
-- [ ] Run `~/.config/symlink.sh` → creates `~/.zshrc`, `~/.cspell.json`, `~/.finicky.js`.
+- [ ] Run `~/.config/symlink.sh` → creates `~/.zshenv`, `~/.zshrc`, `~/.cspell.json`,
+      `~/.finicky.js`. (`~/.zshenv` is the bootstrap that sets `XDG_CONFIG_HOME`; without
+      it the shell can't find any config.)
 - [ ] Install everything from the curated Brewfile:
       `brew bundle install --file ~/.config/Brewfile`
 - [ ] Recreate `~/.config/shell/exports_private.sh` with a **new** `GITHUB_TOKEN`
