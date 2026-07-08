@@ -16,6 +16,8 @@ brew "azcopy"
 brew "azure-cli"
 # Clone of cat(1) with syntax highlighting and Git integration
 brew "bat"
+# Fast Node version manager (Rust) — see nvim/Mason note above
+brew "fnm"
 # Command-line fuzzy finder written in Go
 brew "fzf"
 # GitHub command-line tool

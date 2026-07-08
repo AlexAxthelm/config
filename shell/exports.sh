@@ -31,8 +31,10 @@ else
   fi
 fi
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+# Node via fnm (replaces nvm); guarded so a machine without fnm yet won't error.
+if [ -x "$(command -v fnm)" ]; then
+  eval "$(fnm env --use-on-cd)"
+fi
 
 export PATH="$XDG_DATA_HOME/bin:$PATH"
 
