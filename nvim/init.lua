@@ -23,6 +23,19 @@ map("n", "<leader>Y", '"+Y', mopts)
 map({"n","x"}, "<leader>p", '"+p', mopts)
 map({"n","x"}, "<leader>P", '"+P', mopts)
 
+-- Global diagnostics mappings (LSP + external tools)
+vim.keymap.set("n", "<leader>j", function()
+  vim.diagnostic.goto_next({})
+end, { desc = "Next diagnostic" })
+
+vim.keymap.set("n", "<leader>k", function()
+  vim.diagnostic.goto_prev({})
+end, { desc = "Prev diagnostic" })
+
+vim.keymap.set("n", "<leader>e", function()
+  vim.diagnostic.open_float(nil, { focus = false })
+end, { desc = "Line diagnostics" })
+
 -- Highlight on yank (built-in Neovim feature)
 vim.api.nvim_create_autocmd("TextYankPost", {
   callback = function()
@@ -88,7 +101,7 @@ require("lazy").setup({
       word_diff = true,       -- intra-line diff for changed hunks
 
       -- Blame (inline, subtle, at end of line)
-      current_line_blame = true,
+      current_line_blame = false,
       current_line_blame_opts = { delay = 500, virt_text_pos = 'eol' },
       -- current_line_blame_formatter = '<author>, <author_time:%Y-%m-%d> • <summary>',
 
@@ -150,7 +163,7 @@ require("lazy").setup({
       "L3MON4D3/LuaSnip",      -- snippet engine (required by cmp)
       "hrsh7th/cmp-buffer",    -- buffer words
       "hrsh7th/cmp-path",      -- filesystem paths
-      "andersevenrud/cmp-tmux" -- completion from tmux panes
+      "hrsh7th/cmp-nvim-lsp",  -- LSP completion source
     },
     config = function()
       local cmp = require('cmp')
@@ -181,6 +194,7 @@ require("lazy").setup({
           end, { 'i', 's' }),
         }),
         sources = cmp.config.sources({
+          { name = 'nvim_lsp' }, -- LSP-based completion
           { name = 'path' },     -- filesystem paths
           { name = 'tmux' },     -- words from tmux panes
           {
@@ -200,7 +214,7 @@ require("lazy").setup({
   -- Fugitive: git porcelain and commit helpers
   {
     "tpope/vim-fugitive",
-    cmd = { "Git", "G", "Gdiffsplit", "Gblame", "Glog" }
+    cmd = { "Git", "G", "Gdiffsplit", "Gblame", "Glog", "Gwrite" }
   },
 
 
@@ -263,9 +277,223 @@ require("lazy").setup({
     end,
   },
 
+  -- LSP installer
+  {
+    "williamboman/mason.nvim",
+    build = ":MasonUpdate",
+    config = function()
+      require("mason").setup()
+    end,
+  },
+
+
+  -- mason-lspconfig: declaratively ensure language servers are installed
+  {
+    "williamboman/mason-lspconfig.nvim",
+    dependencies = { "williamboman/mason.nvim", "neovim/nvim-lspconfig" },
+    config = function()
+      local mason_lspconfig = require("mason-lspconfig")
+
+      mason_lspconfig.setup({
+        -- This list is your declarative source of truth.
+        -- On any machine, Mason will auto-install any of these that are missing.
+        ensure_installed = {
+          "ts_ls",
+          "lua_ls",
+          "jsonls",
+          "bashls",
+        },
+      })
+    end,
+  },
+
+  {
+    "neovim/nvim-lspconfig",
+    config = function()
+      local capabilities = require("cmp_nvim_lsp").default_capabilities()
+
+      -- Shared on_attach: runs once per buffer when a language server attaches.
+      local on_attach = function(_, bufnr)
+        local map = function(keys, func, desc)
+          vim.keymap.set("n", keys, func, { buffer = bufnr, desc = desc })
+        end
+
+        -- Basic LSP navigation
+        map("gd", vim.lsp.buf.definition,       "Goto definition")
+        map("gr", vim.lsp.buf.references,       "References")
+        map("gi", vim.lsp.buf.implementation,   "Goto implementation")
+        map("K",  vim.lsp.buf.hover,            "Hover docs")
+
+        -- Refactor / actions
+        map("<leader>rn", vim.lsp.buf.rename,        "Rename symbol")
+        map("<leader>ca", vim.lsp.buf.code_action,   "Code action")
+
+        -- -- Diagnostics navigation (all severities for now)
+        -- map("<leader>j", function() vim.diagnostic.goto_next({}) end, "Next diagnostic")
+        -- map("<leader>k", function() vim.diagnostic.goto_prev({}) end, "Prev diagnostic")
+        -- map("<leader>e", vim.diagnostic.open_float,                 "Line diagnostics")
+      end
+
+      ----------------------------------------------------------------
+      -- Define configs using the new vim.lsp.config() API
+      ----------------------------------------------------------------
+
+      -- Lua (your Neovim config, etc.)
+      vim.lsp.config("lua_ls", {
+        capabilities = capabilities,
+        on_attach = on_attach,
+        settings = {
+          Lua = {
+            diagnostics = {
+              globals = { "vim" }, -- avoid 'vim' undefined warning
+            },
+          },
+        },
+      })
+
+      -- JSON (strict JSON checking: trailing commas will be errors)
+      vim.lsp.config("jsonls", {
+        capabilities = capabilities,
+        on_attach = on_attach,
+      })
+
+      -- Bash
+      vim.lsp.config("bashls", {
+        capabilities = capabilities,
+        on_attach = on_attach,
+      })
+
+      -- Python
+      vim.lsp.config("pyright", {
+        capabilities = capabilities,
+        on_attach = on_attach,
+      })
+
+      -- assuming you already have a generic on_attach defined somewhere above
+      local function on_attach_ruff(client, bufnr)
+        -- keep your existing on_attach behavior
+        if on_attach then
+          on_attach(client, bufnr)
+        end
+
+        -- let pyright handle hover, ruff is mainly for linting/code actions
+        client.server_capabilities.hoverProvider = false
+      end
+
+      vim.lsp.config("ruff", {
+        capabilities = capabilities,
+        on_attach = on_attach_ruff,
+      })
+
+      -- TypeScript / JavaScript
+      vim.lsp.config("ts_ls", {
+        capabilities = capabilities,
+        on_attach = on_attach,
+      })
+
+      -- vim.lsp.config("autotools_ls", {
+      --   capabilities = capabilities,
+      --   on_attach = on_attach,
+      -- })
+
+      ----------------------------------------------------------------
+      -- Enable the servers (auto-attach on matching filetypes)
+      ----------------------------------------------------------------
+      -- vim.lsp.enable({ "lua_ls", "jsonls", "bashls", "pyright", "ruff", "ts_ls", "autotools_ls"})
+      vim.lsp.enable({ "lua_ls", "jsonls", "bashls", "pyright", "ruff", "ts_ls" })
+    end,
+  },
+
+  {
+    "mfussenegger/nvim-lint",
+    config = function()
+      local lint = require("lint")
+
+      ----------------------------------------------------------------
+      -- Define linters for Makefiles
+      ----------------------------------------------------------------
+
+      -- Example checkmake linter. You may need to tweak the args/format
+      -- to match the exact output of `checkmake` on your machine.
+      lint.linters.checkmake = {
+        cmd = "checkmake",
+        stdin = false,
+        args = {},  -- or e.g. { "--format", "..." } if you prefer
+        ignore_exitcode = true,
+        parser = function(output, bufnr)
+          local diags = {}
+
+          -- Very simple pattern: "Makefile:LINE: MESSAGE"
+          -- Adjust this to your checkmake output format.
+          for line in output:gmatch("[^\r\n]+") do
+            local lnum, msg = line:match("^.-:(%d+):%s*(.+)$")
+            if lnum and msg then
+              table.insert(diags, {
+                bufnr = bufnr,
+                lnum = tonumber(lnum) - 1,
+                col = 0,
+                end_lnum = tonumber(lnum) - 1,
+                end_col = 0,
+                message = msg,
+                severity = vim.diagnostic.severity.WARN,
+                source = "checkmake",
+              })
+            end
+          end
+
+          return diags
+        end,
+      }
+
+      -- Optional: mbake as a second linter (e.g. `mbake validate`).
+      -- Same caveat: adjust to its real output.
+      lint.linters.mbake = {
+        cmd = "mbake",
+        stdin = false,
+        args = { "validate" },
+        ignore_exitcode = true,
+        parser = function(output, bufnr)
+          local diags = {}
+          -- placeholder parse; refine once you see mbake's messages
+          for line in output:gmatch("[^\r\n]+") do
+            local lnum, msg = line:match("^.-:(%d+):%s*(.+)$")
+            if lnum and msg then
+              table.insert(diags, {
+                bufnr = bufnr,
+                lnum = tonumber(lnum) - 1,
+                col = 0,
+                end_lnum = tonumber(lnum) - 1,
+                end_col = 0,
+                message = msg,
+                severity = vim.diagnostic.severity.WARN,
+                source = "mbake",
+              })
+            end
+          end
+          return diags
+        end,
+      }
+
+      ----------------------------------------------------------------
+      -- Hook them up to the Makefile filetype
+      ----------------------------------------------------------------
+      lint.linters_by_ft = {
+        make = { "checkmake", "mbake" },  -- run both; or just { "checkmake" }
+      }
+
+      -- Auto-run on relevant events
+      vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
+        group = vim.api.nvim_create_augroup("MakeLint", { clear = true }),
+        callback = function()
+          if vim.bo.filetype == "make" then
+            lint.try_lint()
+          end
+        end,
+      })
+    end,
+  },
 
 })
-
 
 -- Optional: quick key to start a commit inside Neovim
 vim.keymap.set('n', '<leader>gc', ':Git commit<CR>', { silent = true, desc = 'Git commit (Fugitive)' })

@@ -2,17 +2,10 @@
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
 
-# export XDG Dirs: https://wiki.archlinux.org/index.php/XDG_Base_Directory
-export XDG_CACHE_HOME="$HOME/.cache"
-export XDG_CONFIG_HOME="$HOME/.config"
-export XDG_DATA_HOME="$HOME/.local/share"
-export XDG_STATE_HOME="$HOME/.local/state"
-
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-source $XDG_CONFIG_HOME/shell/exports.sh
 source $XDG_CONFIG_HOME/shell/alias.sh
 source $XDG_CONFIG_HOME/shell/base-16-shell.sh
 
@@ -23,3 +16,7 @@ source $XDG_CONFIG_HOME/shell/zsh/antidote.zsh
 
 # Created by `pipx` on 2024-06-13 11:44:48
 export PATH="$PATH:/Users/aaxthelm/.local/bin"
+
+export NVM_DIR="$HOME/.config/nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

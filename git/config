@@ -8,7 +8,6 @@
 	cob = checkout -b
 	com = checkout main
 	cod = checkout develop
-	pushall = !git remote | xargs -L1 git push --all
   co = checkout
   lg = log --graph --decorate --oneline --all
   # pull all prune, and delete local brnaches

@@ -48,3 +48,7 @@ dropbox.attr
 
 # ----Asciinema----
 *.cast
+
+foo
+
+**/.claude/settings.local.json
