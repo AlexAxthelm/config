@@ -97,12 +97,18 @@ cask "keepingyouawake"
 cask "localsend"
 # Scientific and technical publishing system built on Pandoc
 cask "quarto"
+# Window manager
+cask "rectangle"
+# Subscription app launcher (Setapp apps install from within it — see docs/machine-migration.md)
+cask "setapp"
 # Menu Bar manager
 cask "thaw"
 # Multimedia player
 cask "vlc"
 # GPU-accelerated cross-platform terminal emulator and multiplexer
 cask "wezterm"
+# Switch apps, windows, or tabs (alt-tab behavior)
+cask "witch"
 
 # Rust CLI tools (require cargo — installed after `rustup` sets a default toolchain;
 # re-run `brew bundle install` once rustup is set up if these fail on first pass)

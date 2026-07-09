@@ -8,7 +8,13 @@ a deliberate transfer.
 ## Licensed / subscription apps
 
 - [ ] **Setapp** — sign in on the M5, then reinstall only the apps you actually use
-      (curate; don't bulk-install the whole catalog).
+      (curate; don't bulk-install the whole catalog). Setapp itself is bootstrapped by
+      the Brewfile (`cask "setapp"`); install the individual apps from within it. Apps to
+      reinstall via Setapp (keep these OUT of the Brewfile):
+  - [ ] **CleanShot X** (screen capture)
+  - [ ] **CleanMyMac** (disk cleanup)
+  - [ ] **Rectangle** (window manager — Rectangle Pro on Setapp)
+  - [ ] **TripMode** (per-network data control)
 - [ ] **Mac App Store** — reinstall the keepers. List current installs with
       `mas list` (install `mas` via brew first).
 - [ ] Standalone licensed apps — gather license keys / sign-ins before wiping the old Mac
