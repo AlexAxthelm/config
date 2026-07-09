@@ -83,6 +83,7 @@ cask "docker-desktop"
 cask "espanso"
 # Utility for customizing which browser to start
 cask "finicky"
+cask "font-atkynson-mono-nerd-font"
 cask "font-caskaydia-cove-nerd-font"
 cask "font-fira-code-nerd-font"
 cask "font-hack-nerd-font"
