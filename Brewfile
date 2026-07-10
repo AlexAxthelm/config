@@ -92,6 +92,8 @@ cask "font-monaspace"
 cask "godot"
 # Convert caps lock / a modifier to a hyper key
 cask "hyperkey"
+# Menubar calendar
+cask "itsycal"
 # Tool to prevent the system from going into sleep mode
 cask "keepingyouawake"
 # Open-source cross-platform alternative to AirDrop
