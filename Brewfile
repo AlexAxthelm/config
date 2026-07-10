@@ -79,6 +79,7 @@ brew "yamllint"
 
 # Family of tools to build, test and package software
 cask "docker-desktop"
+cask "docker-compose"
 # Cross-platform Text Expander written in Rust
 cask "espanso"
 # Utility for customizing which browser to start
