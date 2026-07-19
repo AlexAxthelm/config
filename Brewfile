@@ -119,7 +119,8 @@ cask "witch"
 # re-run `brew bundle install` once rustup is set up if these fail on first pass)
 cargo "cargo-nextest"
 cargo "cargo-xcode"
-# NOTE: cargo-swift is intentionally NOT listed here. `brew bundle` cargo cannot
-# pin a version (it runs bare `cargo install --locked` and only checks the package
-# name), but the pollux project requires exactly v0.9.0 to match uniffi 0.29.x.
-# The pollux Makefile's `package` target installs the pinned version itself.
+# Runs project-pinned cargo tools from [package.metadata.bin] via `cargo bin`.
+# pollux uses this to pin cargo-swift to v0.9.0 (see shared/Cargo.toml). NOTE:
+# cargo-swift itself is deliberately NOT a `cargo` entry here — `brew bundle`
+# can't pin a version and only checks the package name.
+cargo "cargo-run-bin"

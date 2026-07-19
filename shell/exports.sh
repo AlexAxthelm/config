@@ -42,6 +42,7 @@ export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"
 
 export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
 export PATH="$HOME/.gem/ruby/$(ruby --version | cut -d' ' -f2 | cut -d'.' -f1,2).0/bin:$PATH"
+export PATH="/opt/homebrew/opt/rustup/bin:$PATH"
 
 # Private tokens (git-ignored) — absent on a fresh machine, so guard the source.
 [ -f "$XDG_CONFIG_HOME/shell/exports_private.sh" ] && . "$XDG_CONFIG_HOME/shell/exports_private.sh"
