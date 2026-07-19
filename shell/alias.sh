@@ -72,4 +72,5 @@ fi
 #     echo "INFO: radian not installed"
 #   fi
 # fi
-# 
+
+alias claude-personal='open -a "Claude" --args --user-data-dir="$HOME/Documents/AlexAxthelm/claude-personal"'
