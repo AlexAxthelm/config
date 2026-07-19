@@ -72,6 +72,8 @@ brew "uv"
 brew "vale"
 # Internet file retriever
 brew "wget"
+# Format xcodebuild output (xcpretty replacement; used by pollux Makefile)
+brew "xcbeautify"
 # Generate your Xcode project from a spec file and your folder structure
 brew "xcodegen"
 # Linter for YAML files
@@ -116,5 +118,8 @@ cask "witch"
 # Rust CLI tools (require cargo — installed after `rustup` sets a default toolchain;
 # re-run `brew bundle install` once rustup is set up if these fail on first pass)
 cargo "cargo-nextest"
-cargo "cargo-swift"
 cargo "cargo-xcode"
+# NOTE: cargo-swift is intentionally NOT listed here. `brew bundle` cargo cannot
+# pin a version (it runs bare `cargo install --locked` and only checks the package
+# name), but the pollux project requires exactly v0.9.0 to match uniffi 0.29.x.
+# The pollux Makefile's `package` target installs the pinned version itself.
