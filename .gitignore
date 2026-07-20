@@ -40,3 +40,4 @@ claude/*
 !claude/commands/
 !claude/agents/
 !claude/skills/
+!claude/hooks/
