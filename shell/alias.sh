@@ -65,11 +65,12 @@ else
   fi
 fi
 
-if [ -x "$(command -v radian)" ]; then
-  alias R="radian"
-else
-  if [ -z "$IGNORE_UNINSTALLED_ALIAS" ]; then
-    echo "INFO: radian not installed"
-  fi
-fi
+# if [ -x "$(command -v radian)" ]; then
+#   alias R="radian"
+# else
+#   if [ -z "$IGNORE_UNINSTALLED_ALIAS" ]; then
+#     echo "INFO: radian not installed"
+#   fi
+# fi
 
+alias claude-personal='open -a "Claude" --args --user-data-dir="$HOME/Documents/AlexAxthelm/claude-personal"'

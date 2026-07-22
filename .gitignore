@@ -30,4 +30,14 @@ radian/history
 # ignore asciinema/install-id
 asciinema/install-id
 
-
+# Claude Code — ignore everything, then track only config
+# (rest is session transcripts, caches, tasks, and machine/secret state)
+claude/*
+!claude/settings.json
+!claude/keybindings.json
+!claude/CLAUDE.md
+# user-authored extensions — uncomment any you want version-controlled:
+!claude/commands/
+!claude/agents/
+!claude/skills/
+!claude/hooks/
