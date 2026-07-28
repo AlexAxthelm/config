@@ -1,0 +1,15 @@
+# Loaded for ALL zsh invocations (login, interactive, scripts), before .zshrc.
+# This is the bootstrap: it defines XDG_CONFIG_HOME, which the rest of the config
+# depends on. Symlinked to ~/.zshenv by symlink.sh.
+
+# XDG base dirs — must be set before exports.sh is sourced.
+export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_STATE_HOME="$HOME/.local/state"
+
+# Rust env (present once rustup is installed).
+[ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
+
+# Environment variables (incl. private tokens) for ALL shells, not just interactive.
+[ -f "$XDG_CONFIG_HOME/shell/exports.sh" ] && source "$XDG_CONFIG_HOME/shell/exports.sh"

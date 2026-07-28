@@ -31,8 +31,10 @@ else
   fi
 fi
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+# Node via fnm (replaces nvm); guarded so a machine without fnm yet won't error.
+if [ -x "$(command -v fnm)" ]; then
+  eval "$(fnm env --use-on-cd)"
+fi
 
 export PATH="$XDG_DATA_HOME/bin:$PATH"
 
@@ -40,5 +42,11 @@ export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"
 
 export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
 export PATH="$HOME/.gem/ruby/$(ruby --version | cut -d' ' -f2 | cut -d'.' -f1,2).0/bin:$PATH"
+export PATH="/opt/homebrew/opt/rustup/bin:$PATH"
 
-. "$XDG_CONFIG_HOME/shell/exports_private.sh"
+export CLAUDE_CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/claude"
+
+# Private tokens (git-ignored) — absent on a fresh machine, so guard the source.
+[ -f "$XDG_CONFIG_HOME/shell/exports_private.sh" ] && . "$XDG_CONFIG_HOME/shell/exports_private.sh"
+
+
