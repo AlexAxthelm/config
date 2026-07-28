@@ -41,3 +41,8 @@ claude/*
 !claude/agents/
 !claude/skills/
 !claude/hooks/
+
+acli/
+swiftpm/
+homebrew/trust.json
+
