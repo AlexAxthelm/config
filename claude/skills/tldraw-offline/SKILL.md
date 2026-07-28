@@ -53,7 +53,7 @@ A bundled helper handles the fiddly parts (locating `server.json`, reading the
 per-launch token, bearer auth, JSON). Prefer it over raw `curl`.
 
 ```bash
-SKILL=~/.claude/skills/tldraw-offline          # adjust if installed elsewhere
+SKILL=~/.config/claude/skills/tldraw-offline   # adjust if installed elsewhere
 python3 "$SKILL/scripts/tldraw_api.py" docs                 # print the live API readme
 python3 "$SKILL/scripts/tldraw_api.py" doc                  # id of the focused document (or "none")
 python3 "$SKILL/scripts/tldraw_api.py" search '<js>'        # run JS against the `api` object
