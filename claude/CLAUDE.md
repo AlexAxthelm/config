@@ -18,3 +18,13 @@
   run, then wait for my explicit confirmation.
 - Prefer read-only / dry-run flags when they exist. If you're unsure whether an operation writes,
   assume it does and ask first.
+
+## Worktrees
+
+- When opening a new worktree, prefer opening in a subdirectory of the original
+  repo (`<repo>/.claude/worktrees/`)
+
+## Config Path
+
+- Note that the path to Claude global settings is `~/.config/claude/`, not
+  `~/.claude`
