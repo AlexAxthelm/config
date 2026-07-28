@@ -28,3 +28,21 @@
 
 - Note that the path to Claude global settings is `~/.config/claude/`, not
   `~/.claude`
+
+## Text preparation
+
+- When you draft text in-thread that I intend to paste into another system
+  (Jira, GitHub, etc.), put it in a fenced code block so I can copy the raw
+  source verbatim — do not render it as formatted markdown. If the text itself
+  contains a code fence, use a longer outer fence (e.g. ~~~~) so it doesn't break.
+
+## Config Path
+
+- My Claude config root is `~/.config/claude/`, **not** `~/.claude`. The
+  `~/.claude` directory may exist but is empty and unused — never read from or
+  write to it.
+- Key locations under `~/.config/claude/`: `settings.json` (+ `policy-limits.json`,
+  `remote-settings.json`), `skills/`, `hooks/`, `projects/`, `plans/`, `sessions/`.
+- When writing a path into a skill, script, hook, or settings file, always use
+  `~/.config/claude/…` (or `$XDG_CONFIG_HOME/claude/…`). Never hardcode `~/.claude`
+  — a wrong path there fails silently instead of erroring, which is hard to debug.
