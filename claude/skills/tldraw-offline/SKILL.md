@@ -74,6 +74,12 @@ both **inline on each call**.
 
 ## The core loop
 
+You don't need to plan the final layout up front. Place a few shapes at rough
+coordinates on a coarse grid (~260px pitch), screenshot, then nudge with
+`editor.updateShape` / `helpers.translateShapes` and add the next batch. Reading
+the page first (step 1) gives you the ids of existing shapes so you can extend or
+edit them instead of starting over.
+
 **1. Find the document and read what's there.**
 
 ```bash
@@ -114,11 +120,27 @@ editor.zoomToFit({ animation: { duration: 0 } })
 return { shapes: editor.getCurrentPageShapes().length }   // return plain JSON
 ```
 
-Return plain JSON (ids, counts, booleans) — not shape objects. To rebuild a page
-from scratch, clear it first:
-`editor.deleteShapes(editor.getCurrentPageShapes().map(s => s.id))`. Using stable
-ids (`createShapeId('api')`) makes your snippet **idempotent** — re-running
-updates in place instead of duplicating, so iterating on layout is cheap.
+Return plain JSON (ids, counts, booleans) — not shape objects.
+
+**Grow the diagram; edit in place. Don't clear-and-rebuild to iterate.** Each
+`exec` is additive, so build across several small snippets rather than composing
+the whole thing at once. Give every shape a stable id (`createShapeId('api')`):
+re-running then *updates in place* instead of duplicating, and you can change any
+one shape later by id without touching the rest.
+
+```js
+// Edit an existing shape — no rebuild. Move / relabel / recolor / resize:
+editor.updateShape({ id: createShapeId('api'), type: 'geo',
+  x: 120, y: 260,                                                // move
+  props: { color: 'green', richText: toRichText('API v2') } })  // recolor + relabel
+```
+
+For additive building, `helpers.createShapeIfMissing(partial)` /
+`createShapesIfMissing([...])` seed shapes only if their stable id isn't already
+present — safe to re-run as you grow the diagram.
+
+Clear the page only when you truly want a blank slate — never just to make an
+edit: `editor.deleteShapes(editor.getCurrentPageShapes().map(s => s.id))`.
 
 **3. Verify visually.** Placement is hard to judge blind:
 

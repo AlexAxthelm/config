@@ -24,11 +24,6 @@
 - When opening a new worktree, prefer opening in a subdirectory of the original
   repo (`<repo>/.claude/worktrees/`)
 
-## Config Path
-
-- Note that the path to Claude global settings is `~/.config/claude/`, not
-  `~/.claude`
-
 ## Text preparation
 
 - When you draft text in-thread that I intend to paste into another system
