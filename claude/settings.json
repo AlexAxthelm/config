@@ -43,9 +43,9 @@
       "Bash(acli rovodev:*)",
       "Bash(git commit:*)",
       "Bash(git push:*)"
-    ]
+    ],
+    "defaultMode": "plan"
   },
-  "defaultMode": "plan",
   "hooks": {
     "PreToolUse": [
       {
