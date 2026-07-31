@@ -45,6 +45,7 @@
       "Bash(git push:*)"
     ]
   },
+  "defaultMode": "plan",
   "hooks": {
     "PreToolUse": [
       {
