@@ -19,6 +19,19 @@
 - Prefer read-only / dry-run flags when they exist. If you're unsure whether an operation writes,
   assume it does and ask first.
 
+## Jira (use `acli`, not the built-in connector)
+
+- Our organization will not have the default Jira connector set up. Whenever I reference a
+  Jira ticket by key (e.g. `STIT-###`) or ask you to look at / read / fetch a Jira issue,
+  use the `acli` CLI (`/opt/homebrew/bin/acli`) — never the built-in Jira MCP connector.
+- Site is `rmi1.atlassian.net`, already authenticated via API token (`acli jira auth status`).
+- To read a ticket: `acli jira workitem view <KEY>` (add `--json` for structured output, or
+  `--fields '*all'` / a comma list like `--fields summary,status,comment` to control fields).
+- Other read commands: `acli jira workitem search`, `acli jira workitem comment` (view), etc.
+  Run `acli jira workitem <cmd> --help` when unsure of flags.
+- Any `acli` command that creates/edits/transitions/assigns/archives/deletes/comments is a
+  WRITE action — follow the External services rule above and get my explicit go-ahead first.
+
 ## Worktrees
 
 - When opening a new worktree, prefer opening in a subdirectory of the original
