@@ -19,12 +19,38 @@
 - Prefer read-only / dry-run flags when they exist. If you're unsure whether an operation writes,
   assume it does and ask first.
 
+## Jira (use `acli`, not the built-in connector)
+
+- Our organization will not have the default Jira connector set up. Whenever I reference a
+  Jira ticket by key (e.g. `STIT-###`) or ask you to look at / read / fetch a Jira issue,
+  use the `acli` CLI (`/opt/homebrew/bin/acli`) — never the built-in Jira MCP connector.
+- Site is `rmi1.atlassian.net`, already authenticated via API token (`acli jira auth status`).
+- To read a ticket: `acli jira workitem view <KEY>` (add `--json` for structured output, or
+  `--fields '*all'` / a comma list like `--fields summary,status,comment` to control fields).
+- Other read commands: `acli jira workitem search`, `acli jira workitem comment` (view), etc.
+  Run `acli jira workitem <cmd> --help` when unsure of flags.
+- Any `acli` command that creates/edits/transitions/assigns/archives/deletes/comments is a
+  WRITE action — follow the External services rule above and get my explicit go-ahead first.
+
 ## Worktrees
 
 - When opening a new worktree, prefer opening in a subdirectory of the original
   repo (`<repo>/.claude/worktrees/`)
 
+## Text preparation
+
+- When you draft text in-thread that I intend to paste into another system
+  (Jira, GitHub, etc.), put it in a fenced code block so I can copy the raw
+  source verbatim — do not render it as formatted markdown. If the text itself
+  contains a code fence, use a longer outer fence (e.g. ~~~~) so it doesn't break.
+
 ## Config Path
 
-- Note that the path to Claude global settings is `~/.config/claude/`, not
-  `~/.claude`
+- My Claude config root is `~/.config/claude/`, **not** `~/.claude`. The
+  `~/.claude` directory may exist but is empty and unused — never read from or
+  write to it.
+- Key locations under `~/.config/claude/`: `settings.json` (+ `policy-limits.json`,
+  `remote-settings.json`), `skills/`, `hooks/`, `projects/`, `plans/`, `sessions/`.
+- When writing a path into a skill, script, hook, or settings file, always use
+  `~/.config/claude/…` (or `$XDG_CONFIG_HOME/claude/…`). Never hardcode `~/.claude`
+  — a wrong path there fails silently instead of erroring, which is hard to debug.

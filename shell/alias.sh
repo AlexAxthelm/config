@@ -73,4 +73,4 @@ fi
 #   fi
 # fi
 
-alias claude-personal='open -a "Claude" --args --user-data-dir="$HOME/Documents/AlexAxthelm/claude-personal"'
+alias claude-personal='open -n -a "Claude" --args --user-data-dir="$HOME/Documents/AlexAxthelm/claude-personal"'

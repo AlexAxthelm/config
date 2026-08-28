@@ -32,8 +32,13 @@ else
 fi
 
 # Node via fnm (replaces nvm); guarded so a machine without fnm yet won't error.
+# --log-level quiet keeps `fnm env`'s "Using Node vX" off stderr during zsh init (it
+# applies the local .nvmrc itself and logs about it), which would otherwise trip
+# Powerlevel10k's instant-prompt warning. `fnm env` exports FNM_LOGLEVEL=quiet, so
+# restore info afterwards to keep the on-cd announcement from its chpwd hook.
 if [ -x "$(command -v fnm)" ]; then
-  eval "$(fnm env --use-on-cd)"
+  eval "$(fnm env --use-on-cd --log-level quiet)"
+  export FNM_LOGLEVEL=info
 fi
 
 export PATH="$XDG_DATA_HOME/bin:$PATH"

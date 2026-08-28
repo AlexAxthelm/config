@@ -79,7 +79,9 @@ toRichText } = await import('tldraw')` (static `import` works only in document
 scripts). Common calls:
 
 - `editor.createShape(partial)` / `editor.createShapes([...])`
-- `editor.updateShape({ id, type, props })`
+- `editor.updateShape({ id, type, props })` — edit an existing shape in place
+  (move/relabel/recolor/resize); prefer this over delete+recreate. See "edit in
+  place" in `SKILL.md`.
 - `editor.deleteShapes([id, ...])`
 - `editor.getCurrentPageShapes()` / `editor.getCurrentPageShapeIds()`
 - `editor.select(...ids)` / `editor.selectNone()`
