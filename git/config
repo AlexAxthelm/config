@@ -16,6 +16,8 @@
   dunk = "!f(){ if [ -z \"$1\" ]; then git diff; else git diff \"$@\"; fi | dunk; }; f"
   trigger = "!f() { git commit -m\"Trigger CI\" --allow-empty;}; f"
   pr = push -u origin HEAD
+  # Re-track current branch to origin/<same-name> (push+set if it doesn't exist yet)
+  track = "!f(){ b=$(git branch --show-current); git branch -u \"origin/$b\" 2>/dev/null || git push -u origin \"$b\"; }; f"
   s = status -s
 [color]
 	ui = auto
